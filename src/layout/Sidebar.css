@@ -1,0 +1,88 @@
+@import '../App.css';
+
+.sidebar {
+    width: 150px;
+    height: 100%;
+    background: var(--layout-bg);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    left: 0;
+    top: 0;
+    transition: 0.3s ease;
+    padding: 20px 0;
+}
+
+.logo{
+    width: 60%;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    margin: 20px 0;
+}
+
+.menu li a {
+    color:var(--layout-icon);
+    font-size: 18px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.menu li a.active {
+    color: var(--btn-hover-color);
+}
+
+.menu li a:hover {
+    color: var(--btn-hover-color);
+}
+
+.bottom-menu {
+    margin-bottom: auto;
+}
+
+/* Mobile navbar */
+.mobile-navbar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .mobile-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background: var(--layout-bg);
+        color:var(--layout-icon);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1100;
+    }
+
+    .mobile-navbar button {
+        font-size: 24px;
+        background: none;
+        border: none;
+        color:var(--layout-icon);
+        cursor: pointer;
+    }
+
+    .sidebar {
+        margin-top: 45px;
+        width: 200px;
+        left: -100%;
+        z-index: 1000;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+}

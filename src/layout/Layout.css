@@ -1,0 +1,19 @@
+.dashboard-layout {
+    width: 100%;
+    display: flex;
+}
+
+.content {
+    margin-left: 150px;
+    width: 100%;
+    min-height: 100vh;
+    padding: 5px 25px;
+    overflow-y: scroll;
+}
+
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0;
+        margin-top: 60px;
+    }
+}

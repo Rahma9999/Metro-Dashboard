@@ -1,0 +1,21 @@
+@import '../../App.css';
+
+.txtTitle { 
+    color: var(--txt-color);
+    font-family: "Segoe UI", sans-serif;
+}
+
+.label{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.btn {
+    color: var(--layout-icon) !important;
+    background-color: var(--btn-color) !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.btn:hover {
+    background-color: var(--btn-hover-color) !important;
+}
