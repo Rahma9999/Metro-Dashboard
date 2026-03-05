@@ -12,6 +12,7 @@ import NotFound from './features/NotFound';
 import CreateTicket from './features/ticket/CreateTicket';
 import EditTicket from './features/ticket/EditTicket';
 import HomePage from './features/home/HomePage';
+import SettingsPage from './features/settings/SettingsPage';
 
 function App() {
 
@@ -38,6 +39,9 @@ function App() {
             <Route path="/ticket" element={<Ticket />} />
             <Route path="/ticket/create" element={<CreateTicket />} />
             <Route path="/ticket/edit/:id" element={<EditTicket />} />
+
+            {/* Settings Route */}
+            <Route path='/settings' element={<SettingsPage /> } />
           </Route>
         </Route>
       </Routes>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from "axios";
-import './Login.css';
+import '../../styles/Login.css';
 import { MdEmail, MdLock } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../services/AuthContext';

@@ -1,9 +1,9 @@
-@import '../App.css';
+@import './themes.css';
 
 .sidebar {
     width: 150px;
     height: 100%;
-    background: var(--layout-bg);
+    background: var(--bg-color);
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -13,6 +13,9 @@
     top: 0;
     transition: 0.3s ease;
     padding: 20px 0;
+
+    border-right: var(--sidebar-border);
+    box-shadow: var(--sidebar-shadow);
 }
 
 .logo{
@@ -29,18 +32,18 @@
 }
 
 .menu li a {
-    color:var(--layout-icon);
+    color:var(--txt-color);
     font-size: 18px;
     text-decoration: none;
     transition: 0.2s;
 }
 
 .menu li a.active {
-    color: var(--btn-hover-color);
+    color: var(--hover-color);
 }
 
 .menu li a:hover {
-    color: var(--btn-hover-color);
+    color: var(--hover-color);
 }
 
 .bottom-menu {
@@ -58,21 +61,25 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 20px;
-        background: var(--layout-bg);
-        color:var(--layout-icon);
+        padding: 10px 20px;
+        background: var(--bg-color);
+        color:var(--txt-color);
         position: fixed;
         width: 100%;
         top: 0;
         z-index: 1100;
+        border-bottom: var(--sidebar-border);
     }
 
     .mobile-navbar button {
         font-size: 24px;
         background: none;
         border: none;
-        color:var(--layout-icon);
+        color:var(--txt-color);
         cursor: pointer;
+    }
+    .mobile-navbar button:hover {
+        color:var(--hover-color);
     }
 
     .sidebar {

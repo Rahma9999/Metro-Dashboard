@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import "./Sidebar.css";
+import "../styles/Sidebar.css";
 import logo from '../assets/images/cairoMetro.jpeg';
 import { FaDelicious, FaChartPie, FaRegClock, FaCog, FaSignOutAlt, FaTrain } from "react-icons/fa";
 import { FaTicket } from 'react-icons/fa6';
@@ -28,8 +28,8 @@ function Sidebar() {
         <>
             {/* Mobile Top Navbar */}
             <div className="mobile-navbar">
-                <button onClick={() => setIsOpen(!isOpen)}>☰</button>
-                <span className="mobile-title">Metro Dashboard</span>
+                <button className='p-1 px-2' onClick={() => setIsOpen(!isOpen)}>☰</button>
+                <span className="mobile-title fw-semibold">Metro Dashboard</span>
             </div>
 
             {/* Sidebar */}
@@ -75,7 +75,7 @@ function Sidebar() {
 
                 <ul className="menu bottom-menu">
                     <li>
-                        <NavLink to='/' onClick={closeSidebar}>
+                        <NavLink to='/settings' onClick={closeSidebar}>
                             <FaCog />
                             <span className='ms-1 fw-semibold'>Settings</span>
                         </NavLink>

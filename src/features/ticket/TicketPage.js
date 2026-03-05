@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
-import '../stations/Station.css';
+import '../../styles/StylePages.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { Spinner, Button, Alert } from 'react-bootstrap';
 import { TicketController } from './TicketController';

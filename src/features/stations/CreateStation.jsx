@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
-import './Station.css';
+import '../../styles/StylePages.css';
 import { StationController } from './StationController';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoArrowBackCircle } from 'react-icons/io5';
@@ -96,17 +96,17 @@ function CreateStation() {
             <div>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
-                    <Form.Label className='label'>Station Name</Form.Label>
+                    <Form.Label className='label txtLabel'>Station Name</Form.Label>
                     <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                    <Form.Label className='label'>Postion</Form.Label>
+                    <Form.Label className='label txtLabel'>Postion</Form.Label>
                     <Form.Control type="number" value={position} onChange={(e) => setPosition(e.target.value)} />
                     </Form.Group>
                 
                     <Form.Group className="mb-3">
-                    <Form.Label className='label'>Line Number</Form.Label>
+                    <Form.Label className='label txtLabel'>Line Number</Form.Label>
                     <Form.Select value={line} onChange={(e) => setLine(e.target.value)}>
                         <option value="">Choose...</option>
                         <option value="1">line One</option>
@@ -115,7 +115,7 @@ function CreateStation() {
                     </Form.Select>
                     </Form.Group>
 
-                <Form.Group className="mb-3">
+                <Form.Group className="mb-3 txtLabel">
                     <Form.Check type="checkbox" label="Transfer Point" checked={isTransfer} 
                     onChange={(e) => {
                         setIsTransfer(e.target.checked);
@@ -128,12 +128,12 @@ function CreateStation() {
                 {isTransfer && (
                 <div>
                     <Form.Group className="mb-3">
-                    <Form.Label className='label'>Transfer Position</Form.Label>
+                    <Form.Label className='label txtLabel'>Transfer Position</Form.Label>
                     <Form.Control type="number" value={transferPosition} onChange={(e) => setTransferPosition(e.target.value)} />
                     </Form.Group>
                 
                     <Form.Group className="mb-3">
-                    <Form.Label className='label'>Transfer Line</Form.Label>
+                    <Form.Label className='label txtLabel'>Transfer Line</Form.Label>
                     <Form.Select value={transferLine} onChange={(e) => setTransferLine(e.target.value)}>
                         <option value="">Choose...</option>
                         <option value="1">line One</option>

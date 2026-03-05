@@ -121,17 +121,17 @@ function EditStation() {
             <div>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
-                    <Form.Label className='label'>Name</Form.Label>
+                    <Form.Label className='label txtLabel'>Name</Form.Label>
                     <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                    <Form.Label className='label'>Postion</Form.Label>
+                    <Form.Label className='label txtLabel'>Postion</Form.Label>
                     <Form.Control type="number" value={position} onChange={(e) => setPosition(e.target.value)} />
                     </Form.Group>
                 
                     <Form.Group className="mb-3">
-                    <Form.Label className='label'>Line</Form.Label>
+                    <Form.Label className='label txtLabel'>Line</Form.Label>
                     <Form.Select value={line} onChange={(e) => setLine(e.target.value)}>
                         <option value="">Choose...</option>
                         <option value="1">line One</option>
@@ -140,7 +140,7 @@ function EditStation() {
                     </Form.Select>
                     </Form.Group>
 
-                    <Form.Check type="checkbox" className="mb-3" label="Transfer Station" checked={isTransfer} 
+                    <Form.Check type="checkbox" className="mb-3 txtLabel" label="Transfer Station" checked={isTransfer} 
                     onChange={(e) => {
                         setIsTransfer(e.target.checked);
                         if(!e.target.checked){
@@ -151,12 +151,12 @@ function EditStation() {
                 {isTransfer && (
                 <div>
                     <Form.Group className="my-3">
-                    <Form.Label className='label'>Transfer Position</Form.Label>
+                    <Form.Label className='label txtLabel'>Transfer Position</Form.Label>
                     <Form.Control type="number" value={transferPosition} onChange={(e) => setTransferPosition(e.target.value)} />
                     </Form.Group>
                 
                     <Form.Group className="my-3">
-                    <Form.Label className='label'>Transfer Line</Form.Label>
+                    <Form.Label className='label txtLabel'>Transfer Line</Form.Label>
                     <Form.Select value={transferLine} onChange={(e) => setTransferLine(e.target.value)}>
                         <option value="">Choose...</option>
                         <option value="1">line One</option>

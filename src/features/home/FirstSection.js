@@ -1,5 +1,5 @@
 import React from 'react'
-import './HomeStyle.css'
+import '../../styles/HomeStyle.css'
 import { Alert, Card, CardGroup, ProgressBar } from 'react-bootstrap'
 import impMap from '../../assets/images/metroMap.jpg'
 

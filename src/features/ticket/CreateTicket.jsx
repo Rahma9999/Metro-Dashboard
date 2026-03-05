@@ -63,12 +63,12 @@ function CreateTicket() {
 
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
-                <Form.Label className='label'>Number of staions</Form.Label>
+                <Form.Label className='label txtLabel'>Number of staions</Form.Label>
                 <Form.Control type="number" name="no_of_stations" value={formData.no_of_stations} onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                <Form.Label className='label'>Price</Form.Label>
+                <Form.Label className='label txtLabel'>Price</Form.Label>
                 <Form.Control type="number" name='price' value={formData.price} onChange={handleChange} />
                 </Form.Group>
                 <Button variant="primary" type="submit" className='mb-3'  disabled={loading}>

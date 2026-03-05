@@ -1,0 +1,7 @@
+@import './themes.css';
+
+.welcome {
+    background: var(--alert-bg-color) !important;
+    color: var(--alert-txt-color) !important;
+    border: none !important;
+}

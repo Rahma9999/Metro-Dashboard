@@ -1,0 +1,26 @@
+@import './themes.css';
+
+.txtTitle, .txtLabel { 
+    color: var(--txt-color);
+    font-family: "Segoe UI", sans-serif;
+}
+
+.txtLabel { 
+    font-size: 22 !important;
+}
+
+.label{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.btn {
+    color: var(--btn-txt-color) !important;
+    background-color: var(--btn-bg-color) !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.btn:hover {
+    background-color: var(--hover-color) !important;
+    color: var(--txt-color) !important;
+}

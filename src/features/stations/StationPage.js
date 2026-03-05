@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
-import './Station.css';
+import '../../styles/StylePages.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { Alert, Spinner } from 'react-bootstrap';
 import { StationController } from './StationController.js';
@@ -134,7 +134,7 @@ function StationPage() {
                     Previous
                 </Button>
 
-                <span className="align-self-center">Page {page}</span>
+                <span className="txtTitle align-self-center">Page {page}</span>
 
                 <Button 
                     disabled={page === 10}

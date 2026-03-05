@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './services/AuthContext';
+import { ThemeProvider } from './services/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <ThemeProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+      </ThemeProvider>
   </AuthProvider>
 );

@@ -1,7 +1,0 @@
-@import '../../App.css';
-
-.welcome {
-    background: var(--layout-bg) !important;
-    color: var(--main-bg) !important;
-    border: none !important;
-}
