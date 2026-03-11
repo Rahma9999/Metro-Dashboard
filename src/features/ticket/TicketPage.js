@@ -8,6 +8,7 @@ import { TicketController } from './TicketController';
 function Ticket() {
     const navigate = useNavigate();
     const { getTickets, deleteTicket } = TicketController();
+    const theme = localStorage.getItem('app-theme') || 'light';
 
     const [tickets, setTickets] = useState([]);
 
@@ -46,13 +47,13 @@ function Ticket() {
 
     if(loading) return (
         <div className="position-absolute top-50 start-50 translate-middle">
-            <Spinner animation="border" variant="dark" />
+            <Spinner animation="border" variant={(theme === 'dark')? 'light' : 'dark'} />
         </div>
         );
 
     return (
         <div className='container my-4 w-100'>
-            <h2 className='txtTitle'>ticket Records</h2>
+            <h2 className='txtTitle'>Tickets Management</h2>
 
             {error && <Alert variant="danger">{error}</Alert>}
             

@@ -59,16 +59,9 @@ function Sidebar() {
                     </li>
 
                     <li>
-                        <NavLink to='/' onClick={closeSidebar}>
+                        <NavLink to='/sub' onClick={closeSidebar}>
                             <FaChartPie />
                             <span className='ms-1 fw-semibold'>Subscription</span>
-                        </NavLink>
-                    </li>
-
-                    <li>
-                        <NavLink to='/' onClick={closeSidebar}>
-                            <FaRegClock />
-                            <span className='ms-1 fw-semibold'>History</span>
                         </NavLink>
                     </li>
                 </ul>

@@ -88,10 +88,10 @@ function CreateStation() {
 
             {error && <Alert variant="danger">{error}</Alert>}
 
-            <Link to='/station' className='btn btn-primary my-1'>
+            {/* <Link to='/station' className='btn btn-primary my-1'>
                 <IoArrowBackCircle />
                 back
-            </Link>
+            </Link> */}
 
             <div>
                 <Form onSubmit={handleSubmit}>

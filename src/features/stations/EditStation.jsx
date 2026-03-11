@@ -8,6 +8,7 @@ function EditStation() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { editStation, getOneStation } = StationController();
+    const theme = localStorage.getItem('app-theme') || 'light';
 
     const [name, setName] = useState('');
     const [position, setPosition] = useState(-1);
@@ -100,23 +101,16 @@ function EditStation() {
         }
     };
 
-    if (loading)
-    return (
-        <div className="text-center mt-5">
-            <Spinner animation="border" />
-        </div>
-    );
-
     return (
         <div className='container w-100 mt-4'>
             <h2 className='txtTitle my-4'>Edit the {name} Station</h2>
             
             {error && <Alert variant="danger">{error}</Alert>}
 
-            <Link to='/station' className='btn btn-primary my-1'>
+            {/* <Link to='/station' className='btn btn-primary my-1'>
                 <IoArrowBackCircle />
                 back
-            </Link>
+            </Link> */}
 
             <div>
                 <Form onSubmit={handleSubmit}>

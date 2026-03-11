@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import '../../styles/StylePages.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { Alert, Spinner } from 'react-bootstrap';
+import { Alert, Card, CardGroup, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { StationController } from './StationController.js';
 
 function StationPage() {
@@ -17,6 +17,7 @@ function StationPage() {
     const [loading, setLoading] = useState(false);
     const [loadingSearch, setLoadingSearch] = useState(false);
     const [error, setError] = useState('');
+    const theme = localStorage.getItem('app-theme') || 'light';
 
     const getData = async () => {
         setLoading(true);
@@ -70,32 +71,64 @@ function StationPage() {
 
     if(loading) return (
     <div className="position-absolute top-50 start-50 translate-middle">
-        <Spinner animation="border" variant="dark" />
+        <Spinner animation="border" variant={(theme === 'dark')? 'light' : 'dark'} />
     </div>
     );
     
     return (
         <div className='stationMain container my-4 w-100'>
-            <h2 className='txtTitle'>Station Records</h2>
-
             {error && <Alert variant="danger">{error}</Alert>}
+
+            <Container className='my-4 w-100'>
+                <h2 className='txtTitle mb-3'>Stations Management</h2>
+                <CardGroup className='statCard'>
+                    <Card className="stat-card me-2">
+                    <Card.Body className="d-flex align-items-center gap-3 py-3">
+                        <div>
+                            <div>Line 1</div>
+                            <div className='stat-value'>14 stations</div>
+                        </div>
+                    </Card.Body>
+                    </Card>
+                    <Card className="stat-card me-2">
+                    <Card.Body className="d-flex align-items-center gap-3 py-3">
+                        <div>
+                            <div>Line 2</div>
+                            <div className='stat-value'>14 stations</div>
+                        </div>
+                    </Card.Body>
+                    </Card>
+                    <Card className="stat-card me-2">
+                    <Card.Body className="d-flex align-items-center gap-3 py-3">
+                        <div>
+                            <div>Line 3</div>
+                            <div className='stat-value'>14 stations</div>
+                        </div>
+                    </Card.Body>
+                    </Card>
+                </CardGroup>
+            </Container>
             
-            <div className='d-flex justify-content-between'>
-                <div>
-                    <Link to='/station/create' className='btn btn-primary me-1'>
-                        Add new Station
-                    </Link>
-                    <Button className='btn' onClick={getData}>Refresh</Button>
-                </div>
-                <span className='align-middle'>
-                    <input type='text' value={searchKey} onChange={(e) => setSearchKey(e.target.value)} placeholder='ex: helwan' className='rounded-3 p-1 mx-2' />
-                    <Button className='btn' disabled={loadingSearch} onClick={handleSearch}>
-                        {loadingSearch ? <Spinner size="sm" animation="border" /> : "Search"}
-                    </Button>
-                </span>
-            </div>
-            <div className="container-fluid mt-4">
-                <Table bordered className='stationTable mw-100 '>
+            <Container className=''>
+                <Row>
+                    <Col className='align-middle'>
+                        <input type='text' value={searchKey} onChange={(e) => setSearchKey(e.target.value)} placeholder='ex: helwan' className='rounded-3 p-2 mx-2 w-100' />
+                    </Col>
+                    <Col>
+                        <Button className='btn' disabled={loadingSearch} onClick={handleSearch}>
+                            {loadingSearch ? <Spinner size="sm" animation="border" /> : "Search"}
+                        </Button>
+                    </Col>
+                    <Col>
+                        <Link to='/station/create' className='btn btn-primary me-1'>
+                            Add new one
+                        </Link>
+                        <Button className='btn' onClick={getData}>Refresh</Button>
+                    </Col>
+                </Row>
+            </Container>
+            <Container className='mt-3'>
+                <Table bordered className='stationTable'>
                 <thead>
                     <tr>
                     <th>Postion</th>
@@ -111,21 +144,23 @@ function StationPage() {
                             <td>{station.name}</td>
                             <td>{station.line_number}</td>
                             <td>
-                                <Button className='btn me-1' onClick={() => navigate(`/station/view/${station._id}`)}>
-                                    View
-                                </Button>
-                                <Button className='btn me-1' onClick={() => navigate(`/station/edit/${station._id}`)}>
-                                    Edit
-                                </Button>
-                                <Button className='btn me-1' onClick={() => handleDelete(station._id)}>
-                                    Delete
-                                </Button>                            
+                                <div className="d-flex flex-wrap gap-1">
+                                    <Button className='btn me-1' onClick={() => navigate(`/station/view/${station._id}`)}>
+                                        View
+                                    </Button>
+                                    <Button className='btn me-1' onClick={() => navigate(`/station/edit/${station._id}`)}>
+                                        Edit
+                                    </Button>
+                                    <Button className='btn me-1' onClick={() => handleDelete(station._id)}>
+                                        Delete
+                                    </Button>  
+                                </div>                          
                             </td>
                         </tr>
                     ))}
                 </tbody>
                 </Table>
-                <div className="d-flex justify-content-center mt-3">
+                <div className="d-flex justify-content-center mt-2">
                 <Button 
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}
@@ -144,7 +179,7 @@ function StationPage() {
                     Next
                 </Button>
             </div>
-            </div>
+            </Container>
         </div>
     )
 }

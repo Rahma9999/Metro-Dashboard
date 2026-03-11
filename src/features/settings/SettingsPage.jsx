@@ -17,7 +17,7 @@ const SettingsPage = () => {
 
 
     return (
-        <Container className="mt-4">
+        <Container className=" txtTitle my-3">
             <h2>Dashboard Settings</h2>
 
             <Form.Group className='my-3'>

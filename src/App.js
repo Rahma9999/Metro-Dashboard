@@ -13,6 +13,9 @@ import CreateTicket from './features/ticket/CreateTicket';
 import EditTicket from './features/ticket/EditTicket';
 import HomePage from './features/home/HomePage';
 import SettingsPage from './features/settings/SettingsPage';
+import SubscriptionPage from './features/subscription/subscription-manager';
+import SubPage from './features/subscription/SubPage';
+import UserDetails from './features/subscription/UserDetails';
 
 function App() {
 
@@ -42,6 +45,12 @@ function App() {
 
             {/* Settings Route */}
             <Route path='/settings' element={<SettingsPage /> } />
+
+            {/* Subscription */}
+            <Route path='/testSub' element={<SubscriptionPage /> } />
+            <Route path='/sub' element={<SubPage /> } />
+            <Route path='/sub/details/:id' element={<UserDetails /> } />
+
           </Route>
         </Route>
       </Routes>

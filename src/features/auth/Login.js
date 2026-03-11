@@ -4,7 +4,7 @@ import '../../styles/Login.css';
 import { MdEmail, MdLock } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../services/AuthContext';
-import { FloatingLabel, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 function Login() {
     const navigate = useNavigate();
