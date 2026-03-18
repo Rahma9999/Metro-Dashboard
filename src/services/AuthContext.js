@@ -7,8 +7,11 @@ export const AuthProvider = ({ children }) => {
         !!localStorage.getItem("token")
     );
 
-    const login = (token) => {
+    const login = (token, adminName, ssn, email) => {
         localStorage.setItem("token", token);
+        localStorage.setItem("ssn", ssn);
+        localStorage.setItem("email", email);
+        localStorage.setItem('name', adminName);
         setIsAuthenticated(true);
     };
 

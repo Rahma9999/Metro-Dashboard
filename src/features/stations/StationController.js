@@ -6,7 +6,7 @@ export const StationController =() => {
     const fetchStations = async (page = 1) => {
         try{
             const res = await axiosInstance.get(`/getallstations?page=${page}`);
-            return res.data?.data?.allStations || [];
+            return res.data || [];
         }catch(err){
             throw err;
         }

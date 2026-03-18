@@ -1,34 +1,60 @@
 import Button from 'react-bootstrap/Button';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import '../../styles/StylePages.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { Alert, Card, CardGroup, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { StationController } from './StationController.js';
 
+const initState = {loading: false, loadingSearch: false, error: '', pageLength: 2, result: 1, page: 1};
+const reducer = (state, action) => {
+    // console.log(state, action);
+    switch (action.type) {
+        case 'loading':
+            return { ...state, loading: true, error: ''};
+            case 'unloading':
+                return { ...state, loading: false };
+        case 'setLoadingSearch':
+            return {...state, loadingSearch: true, error: ''};
+        case 'setUnloadingSearch':
+            return {...state, loadingSearch: false};
+        case 'setError':
+            return {...state, error: action.payload};
+        case 'setPagesData':
+            return {...state, pageLength: action.pageLength, result: action.res}
+        case 'incPage':
+                return {...state, page: state.page + 1};
+        case 'decPage':
+            return {...state, page: state.page - 1};
+        default:
+            throw new Error("station page: reducer Error!!");
+    }
+};
+
 function StationPage() {
     const navigate = useNavigate();
-    const {fetchStations, removeStation, searchStation, getOneStation} = StationController();
+    const {fetchStations, removeStation, searchStation} = StationController();
     
     const [stations, setStations] = useState([]);
     const [searchKey, setSearchKey] = useState('');
-    const [page, setPage] = useState(1);
+    // const [page, setPage] = useState(1);
     
-    const [loading, setLoading] = useState(false);
-    const [loadingSearch, setLoadingSearch] = useState(false);
-    const [error, setError] = useState('');
+    const [{loading, error, loadingSearch, result, page}, dispatch] = useReducer(reducer, initState);
+    // const totalPages = Math.ceil(pageLength / result);
+
     const theme = localStorage.getItem('app-theme') || 'light';
 
     const getData = async () => {
-        setLoading(true);
-        setError('');
+        dispatch({type:'loading'});
+        setSearchKey('');
         try{
             const data = await fetchStations(page);
-            setStations(data);
+            dispatch({type: 'setPagesData', pageLength: data.stationsTotalLength, res: data.results});
+            setStations(data.data.allStations);
         }catch(err){
-            setError(err.message || 'Failed to load stations');
+            dispatch({type: 'setError', payload: ('Failed to load stations')});
         }finally {
-            setLoading(false);
+            dispatch({type:'unloading'});
         }
     } 
     useEffect(() => {
@@ -37,35 +63,29 @@ function StationPage() {
 
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this station?")) return;
-        setLoading(true);
+        dispatch({type:'loading'});
         try {
-            const res = await getOneStation(id);
-            ///////////// problem: each station has different id and transID occure from create////////////////
-            // if(res.is_transfer){
-            //     console.log('trans id: ' + res.transfer_to[0]._id);
-            //     if (!window.confirm("Do you want to delete the transfer station that belongs to it also?"))
-            //         await removeStation(res.transfer_to[0]._id);
-            // }
             await removeStation(id);
             getData(); 
         } catch (err) {
-        setError(err.message || "Failed to delete station");
+            dispatch({type: 'setError', payload: ( "Failed to delete station")});
         } finally {
-        setLoading(false);
+        dispatch({type:'unloading'});
         }
     };
 
     const handleSearch = async () => {
-        setLoadingSearch(true);
-        setError('');
+        dispatch({type: 'setLoadingSearch'});
         try{
             const res = await searchStation(searchKey);
             setStations(res || []);
-            console.log(res);
+            // console.log(res);
         }catch(err){
-            setError(err.message);
+            console.log(err)
+            dispatch({type: 'setError', payload: "Station Not Found"});
+            setStations([]);
         }finally {
-            setLoadingSearch(false);
+            dispatch({type: 'setUnloadingSearch'});
         }
     };
 
@@ -85,24 +105,24 @@ function StationPage() {
                     <Card className="stat-card me-2">
                     <Card.Body className="d-flex align-items-center gap-3 py-3">
                         <div>
-                            <div>Line 1</div>
-                            <div className='stat-value'>14 stations</div>
+                            <div className='text-primary'>Line 1</div>
+                            <div className='stat-value'>35 stations</div>
                         </div>
                     </Card.Body>
                     </Card>
                     <Card className="stat-card me-2">
                     <Card.Body className="d-flex align-items-center gap-3 py-3">
                         <div>
-                            <div>Line 2</div>
-                            <div className='stat-value'>14 stations</div>
+                            <div className='text-danger'>Line 2</div>
+                            <div className='stat-value'>20 stations</div>
                         </div>
                     </Card.Body>
                     </Card>
                     <Card className="stat-card me-2">
                     <Card.Body className="d-flex align-items-center gap-3 py-3">
                         <div>
-                            <div>Line 3</div>
-                            <div className='stat-value'>14 stations</div>
+                            <div className='text-success'>Line 3</div>
+                            <div className='stat-value'>34 stations</div>
                         </div>
                     </Card.Body>
                     </Card>
@@ -163,17 +183,20 @@ function StationPage() {
                 <div className="d-flex justify-content-center mt-2">
                 <Button 
                     disabled={page === 1}
-                    onClick={() => setPage(page - 1)}
+                    onClick={() => dispatch({type: 'decPage'})}
                     className="me-2"
                 >
                     Previous
                 </Button>
 
                 <span className="txtTitle align-self-center">Page {page}</span>
-
+                
                 <Button 
-                    disabled={page === 10}
-                    onClick={() => setPage(page + 1)}
+                    disabled={page >= result}
+                    onClick={() => {
+                        dispatch({type: 'incPage'})
+                        console.log(page,result);
+                    }}
                     className="ms-2"
                 >
                     Next

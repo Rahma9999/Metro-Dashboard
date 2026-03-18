@@ -6,6 +6,7 @@ import { IoArrowBackCircle } from 'react-icons/io5';
 
 function ViewStation() {
     const {getOneStation} = StationController();
+    const theme = localStorage.getItem('app-theme') || 'light';
     const { id } = useParams();
 
     const [loading, setLoading] = useState(true);
@@ -32,7 +33,7 @@ function ViewStation() {
 
         if(loading) return (
     <div className="position-absolute top-50 start-50 translate-middle">
-        <Spinner animation="border" variant="dark" />
+        <Spinner animation="border" variant={(theme === 'dark')? 'light' : 'dark'} />
     </div>
     );
 

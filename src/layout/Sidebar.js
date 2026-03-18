@@ -38,7 +38,7 @@ function Sidebar() {
 
                 <ul className="menu">
                     <li>
-                        <NavLink to='/home' onClick={closeSidebar}>
+                        <NavLink to='/' onClick={closeSidebar}>
                             <FaDelicious />
                                 <span className='ms-1 fw-semibold'>Home</span>
                         </NavLink>
@@ -47,7 +47,7 @@ function Sidebar() {
                     <li>
                         <NavLink to='/station' onClick={closeSidebar}>
                             <FaTrain />
-                            <span className='ms-1 fw-semibold'>Station</span>
+                            <span className='ms-1 fw-semibold'>Stations</span>
                         </NavLink>
                     </li>
 

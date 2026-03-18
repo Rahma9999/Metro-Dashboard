@@ -58,6 +58,7 @@ const SettingsPage = () => {
                 <Form.Select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
+                disabled
                 >
                 <option value="English" onSelect={() => handleLanguageChange('English')}>English</option>
                 <option value="Arabic" onSelect={() => handleLanguageChange('Arabic')}>Arabic</option>

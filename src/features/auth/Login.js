@@ -22,12 +22,12 @@ function Login() {
                 "https://metrodb-production.up.railway.app/api/v1/admin/login",
                 {email, password}
             );
-            console.log(res);
+            // console.log(res);
             const token = res.data.token;
             const adminName = res.data.data.admin.name;
-            localStorage.setItem('name', adminName);
+            const ssn = res.data.data.admin.ssn;
             
-            login(token);
+            login(token, adminName, ssn, email);
             navigate('/');
         }catch(err){
             setError("invalid email or password");

@@ -113,7 +113,7 @@ function SubPage() {
                         <td>
                             Student
                         </td>
-                        <td>Active</td>
+                        <td>Expired</td>
                         <td className="hide-sm">10/2/2026</td>
                         <td className="hide-sm">10/5/2026</td>
                         <td>
@@ -125,7 +125,7 @@ function SubPage() {
                                     Update
                                 </Button>
                                 <Button className='btn me-1'>
-                                    Delete
+                                    Renew
                                 </Button>
                             </div>
                         </td>

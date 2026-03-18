@@ -4,6 +4,26 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { StationController } from './StationController';
 import { IoArrowBackCircle } from 'react-icons/io5';
 
+
+const userForm = {
+    name: '', 
+    position: -1, 
+    line: '', 
+    isTransfer: false, 
+    transferLine: '', 
+    transferPosition: -1
+};
+const reducer = (state, action) => {
+    switch(action.type){
+        case 'setForm':
+            return {...state, [action.field]: action.value};
+        case 'resetForm':
+            return userForm;
+        default:
+            throw new Error('create station: reducer error!!');
+    }
+}
+
 function EditStation() {
     const { id } = useParams();
     const navigate = useNavigate();

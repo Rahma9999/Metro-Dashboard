@@ -1,8 +1,7 @@
 import React from 'react'
 import '../../styles/HomeStyle.css'
 import '../../styles/StylePages.css'
-import { Alert, Card, CardGroup, ProgressBar } from 'react-bootstrap'
-import impMap from '../../assets/images/metroMap.jpg'
+import { Alert, Card, CardGroup } from 'react-bootstrap'
 
 function FirstSection() {
     let adminName = localStorage.getItem('name') || 'Unkown';
@@ -12,7 +11,7 @@ function FirstSection() {
             <Alert className='welcome '>
                 Welcome {adminName} to metro dashboard.
             </Alert>
-            <CardGroup className='my-3'>
+            <CardGroup className='mb-3'>
                 <Card className='me-2'>
                     <Card.Body>
                         <Card.Title className='txtLabel'>Stations</Card.Title>
@@ -41,18 +40,6 @@ function FirstSection() {
                     </Card.Body>
                 </Card>
             </CardGroup>
-            <div className='my-3'>
-                <h2 className='txtTitle'>Statistical crowding</h2>
-                    <div className='mt-2 txtLabel'>Line 1: </div>
-                    <ProgressBar variant="success" now={70} />
-                    <div className='mt-2 txtLabel'>Line 2: </div>
-                    <ProgressBar variant="info" now={40} />
-                    <div className='mt-2 txtLabel'>Line 3: </div>
-                    <ProgressBar variant="danger" now={70} />
-            </div>
-            <div className='d-flex justify-content-center'>
-                <img src={impMap} alt='' />
-            </div>
         </div>
     )
 }

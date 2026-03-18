@@ -13,9 +13,9 @@ import CreateTicket from './features/ticket/CreateTicket';
 import EditTicket from './features/ticket/EditTicket';
 import HomePage from './features/home/HomePage';
 import SettingsPage from './features/settings/SettingsPage';
-import SubscriptionPage from './features/subscription/subscription-manager';
 import SubPage from './features/subscription/SubPage';
 import UserDetails from './features/subscription/UserDetails';
+import "leaflet/dist/leaflet.css";
 
 function App() {
 
@@ -31,7 +31,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path='*' element={<NotFound />} />
             {/* Home */}
-            <Route path='/home' element={<HomePage />} />
+            <Route path='/' element={<HomePage />} />
             {/* Station Routes */}
             <Route path="/station" element={<StationPage />} />
             <Route path="/station/create" element={<CreateStation />} />
@@ -47,7 +47,6 @@ function App() {
             <Route path='/settings' element={<SettingsPage /> } />
 
             {/* Subscription */}
-            <Route path='/testSub' element={<SubscriptionPage /> } />
             <Route path='/sub' element={<SubPage /> } />
             <Route path='/sub/details/:id' element={<UserDetails /> } />
 
