@@ -2,13 +2,12 @@ import Button from 'react-bootstrap/Button';
 import React, { useEffect, useReducer, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import '../../styles/StylePages.css';
-import { Link, useNavigate } from 'react-router-dom';
 import { Alert, Card, CardGroup, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { StationController } from './StationController.js';
+import StationModal from '../../services/DBModal.js';
 
 const initState = {loading: false, loadingSearch: false, error: '', pageLength: 2, result: 1, page: 1};
 const reducer = (state, action) => {
-    // console.log(state, action);
     switch (action.type) {
         case 'loading':
             return { ...state, loading: true, error: ''};
@@ -32,16 +31,14 @@ const reducer = (state, action) => {
 };
 
 function StationPage() {
-    const navigate = useNavigate();
     const {fetchStations, removeStation, searchStation} = StationController();
-    
     const [stations, setStations] = useState([]);
     const [searchKey, setSearchKey] = useState('');
-    // const [page, setPage] = useState(1);
+    const [selectedStationId, setSelectedStationId] = useState(null);
+    const [modalShow, setModalShow] = useState(false);
+    const [mode, setMode] = useState('');
     
     const [{loading, error, loadingSearch, result, page}, dispatch] = useReducer(reducer, initState);
-    // const totalPages = Math.ceil(pageLength / result);
-
     const theme = localStorage.getItem('app-theme') || 'light';
 
     const getData = async () => {
@@ -99,11 +96,18 @@ function StationPage() {
         <div className='stationMain container my-4 w-100'>
             {error && <Alert variant="danger">{error}</Alert>}
 
+            <StationModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                mode={mode}
+                id={selectedStationId}
+            />
+
             <Container className='my-4 w-100'>
                 <h2 className='txtTitle mb-3'>Stations Management</h2>
                 <CardGroup className='statCard'>
                     <Card className="stat-card me-2">
-                    <Card.Body className="d-flex align-items-center gap-3 py-3">
+                    <Card.Body className="card-body">
                         <div>
                             <div className='text-primary'>Line 1</div>
                             <div className='stat-value'>35 stations</div>
@@ -111,7 +115,7 @@ function StationPage() {
                     </Card.Body>
                     </Card>
                     <Card className="stat-card me-2">
-                    <Card.Body className="d-flex align-items-center gap-3 py-3">
+                    <Card.Body className="card-body">
                         <div>
                             <div className='text-danger'>Line 2</div>
                             <div className='stat-value'>20 stations</div>
@@ -119,7 +123,7 @@ function StationPage() {
                     </Card.Body>
                     </Card>
                     <Card className="stat-card me-2">
-                    <Card.Body className="d-flex align-items-center gap-3 py-3">
+                    <Card.Body className="card-body">
                         <div>
                             <div className='text-success'>Line 3</div>
                             <div className='stat-value'>34 stations</div>
@@ -140,15 +144,18 @@ function StationPage() {
                         </Button>
                     </Col>
                     <Col>
-                        <Link to='/station/create' className='btn btn-primary me-1'>
-                            Add new one
-                        </Link>
+                        <Button className='btn  me-1' onClick={() => {
+                                setMode('createStation');
+                                setModalShow(true);}
+                                }>
+                            Add new station
+                        </Button>
                         <Button className='btn' onClick={getData}>Refresh</Button>
                     </Col>
                 </Row>
             </Container>
             <Container className='mt-3'>
-                <Table bordered className='stationTable'>
+                <Table bordered variant={theme} className='stationTable'>
                 <thead>
                     <tr>
                     <th>Postion</th>
@@ -165,10 +172,19 @@ function StationPage() {
                             <td>{station.line_number}</td>
                             <td>
                                 <div className="d-flex flex-wrap gap-1">
-                                    <Button className='btn me-1' onClick={() => navigate(`/station/view/${station._id}`)}>
+                                    <Button className='btn me-1'
+                                    onClick={() => {
+                                        setSelectedStationId(station._id);
+                                        setMode('viewStation');
+                                        setModalShow(true);}
+                                        }>
                                         View
                                     </Button>
-                                    <Button className='btn me-1' onClick={() => navigate(`/station/edit/${station._id}`)}>
+                                    <Button className='btn me-1' onClick={() => {
+                                        setSelectedStationId(station._id);
+                                        setMode('editStation');
+                                        setModalShow(true);}
+                                        }>
                                         Edit
                                     </Button>
                                     <Button className='btn me-1' onClick={() => handleDelete(station._id)}>

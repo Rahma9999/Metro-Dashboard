@@ -24,7 +24,7 @@ const reducer = (state, action) => {
     }
 }
 
-function CreateStation() {
+function CreateStation({onHide}) {
     const navigate = useNavigate();
     const { createStation } = StationController();
     
@@ -72,7 +72,7 @@ function CreateStation() {
             };
             await createStation(data);
             dispatch({type: 'resetForm'})
-            navigate('/station');
+            onHide();
         }catch(err){
             console.log(err)
             setError("Failed to create station: There is a station already exists at this position on this line");

@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
+import '../../styles/StylePages.css';
 import { Container, Form, Button } from 'react-bootstrap';
 import { ThemeContext } from '../../services/ThemeContext';
+import { FaMoon, FaSun } from 'react-icons/fa';
 
 const SettingsPage = () => {
     const { theme, toggleTheme } = useContext(ThemeContext);
@@ -18,7 +20,14 @@ const SettingsPage = () => {
 
     return (
         <Container className=" txtTitle my-3">
-            <h2>Dashboard Settings</h2>
+            <div className='d-flex justify-content-between'>
+                <h2>Dashboard Settings</h2>
+                <div>
+                    <Button onClick={toggleTheme} className='btn'>
+                        {theme === 'light'? <FaMoon />: <FaSun />}
+                    </Button>
+                </div>
+            </div>
 
             <Form.Group className='my-3'>
                 <Form.Label className='txtLabel'>Admin Name: </Form.Label>
@@ -64,10 +73,6 @@ const SettingsPage = () => {
                 <option value="Arabic" onSelect={() => handleLanguageChange('Arabic')}>Arabic</option>
                 </Form.Select>
             </Form.Group>
-
-            <Button onClick={toggleTheme}>
-            Switch to {theme === "light" ? "Dark" : "Light"} Mode
-            </Button>
         </Container>
     );
 };

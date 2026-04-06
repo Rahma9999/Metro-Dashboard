@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, Form, Spinner } from 'react-bootstrap'
-import { useNavigate, useParams } from 'react-router-dom';
 import { TicketController } from './TicketController';
 
-function EditTicket() {
-    const { id } = useParams();
-    const navigate = useNavigate();
+function EditTicket({ id, onHide }) {
     const { updateTicket, getTicket } = TicketController();
 
     const [loading, setLoading] = useState(false);
@@ -35,8 +32,9 @@ function EditTicket() {
                     no_of_stations: ticket.no_of_stations,
                 });
             }catch(err){
-                setError(err.message || "Failed to load ticket");
+                setError("Failed to load ticket");
             }finally {
+                console.log('id: ', id);
                 setLoading(false);
             }
         }
@@ -68,9 +66,9 @@ function EditTicket() {
                 price: '',
                 no_of_stations: ''
             });
-            navigate('/ticket');
+            onHide();
         }catch(err){
-            setError(err.message || "Failed to update ticket");
+            setError("Failed to update ticket");
         }finally { 
             setLoading(false);
         }

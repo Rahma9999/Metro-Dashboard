@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { StationController } from './StationController';
 import { Alert, Spinner, Table } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
-import { IoArrowBackCircle } from 'react-icons/io5';
 
-function ViewStation() {
+function ViewStation({id}) {
     const {getOneStation} = StationController();
     const theme = localStorage.getItem('app-theme') || 'light';
-    const { id } = useParams();
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-
     const [station, setStation] = useState([]);
 
     const viewStation = async () => {
@@ -28,8 +24,9 @@ function ViewStation() {
         }
     } 
     useEffect(() => {
+        if(id)
             viewStation();
-        },[]);
+        },[id]);
 
         if(loading) return (
     <div className="position-absolute top-50 start-50 translate-middle">
@@ -42,13 +39,8 @@ function ViewStation() {
             <h2 className='txtTitle'>{station.name} station.</h2>
         
             {error && <Alert variant="danger">{error}</Alert>}
-            
-            {/* <Link to='/station' className='btn btn-primary my-1'>
-                <IoArrowBackCircle />
-                back
-            </Link> */}
 
-            <Table className='my-3'>
+            <Table className='my-3' variant={theme}>
                 <tbody>
                     <tr>
                     <td>ID: </td>
@@ -70,14 +62,10 @@ function ViewStation() {
             </Table>
 
             {station.is_transfer &&
-            <>
+            <div>
                 <h4 className='txtTitle'>Another Details</h4>
-                <Table className='my-3'>
+                <Table className='my-3 w-100' variant={theme}>
                     <tbody>
-                        <tr>
-                        <td>Transfer ID: </td>
-                        <td>{station.transfer_to[0]._id}</td>
-                        </tr>
                         <tr>
                         <td>Transfer line: </td>
                         <td>{station.transfer_to[0].line}</td>
@@ -88,7 +76,7 @@ function ViewStation() {
                         </tr>
                     </tbody>
                 </Table>
-            </>
+            </div>
             }
         </div>
     )

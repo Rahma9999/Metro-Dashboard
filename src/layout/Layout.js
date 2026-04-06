@@ -7,7 +7,6 @@ function Layout() {
     return (
         <div className="dashboard-layout">
             <Sidebar />
-            
             <div className="content">
                 <Outlet />
             </div>

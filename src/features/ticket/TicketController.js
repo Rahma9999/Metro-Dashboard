@@ -39,7 +39,7 @@ export const TicketController = () => {
 
     const updateTicket = async (id, data) => {
         try {
-            await axiosInstance.patch(`/getticket/${id}`, data);
+            await axiosInstance.patch(`/updateticket/${id}`, data);
         }catch(err){
             throw err;
         }

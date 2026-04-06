@@ -1,33 +1,43 @@
 body.light {
-    --bg-color: #cdd8eb;
-    --txt-color: #651215;
-    --hover-color: #6b676d;
-    --hover-txt-color:#edf1f8; 
-    --btn-bg-color:#651215;
-    --btn-txt-color:#edf1f8;
-    
-    --sidebar-border: 1px solid #651215;
-    --sidebar-shadow: 2px 0 10px #241b1d;
-    
-    --alert-bg-color: #651215;
-    --alert-txt-color: #edf1f8;
-    
-    --main-bg: #e4e7e4;
+    --bg-layout-color: #5C1616;
+    --txt-color-layout: #FAFAFA;
+    --text-hover-layout: #E6960D;
 
+    --card-color: #E6960D;
+
+    --txt-color: #1A1414;
+
+    --hover-color: #5C1616;
+    --btn-bg-color:#7A1A1A;
+    --btn-txt-color:#FAFAFA;
+    
+    --sidebar-border: 1px solid #FAFAFA;
+    --sidebar-shadow: 2px 0 10px #1A0F0F;
+    
+    --alert-bg-color: #5C1616;
+    --alert-txt-color: #FAFAFA;
+    
+    --main-bg: #FAFAFA;
 }
 
 body.dark {
-    --bg-color:  #651215;
-    --txt-color: #edf1f8;
-    --btn-color: #6b676d;
-    --hover-color:#253745; 
-    --hover-txt-color:#edf1f8;
-    --btn-bg-color:#cdd8eb;
-    --btn-txt-color:#651215;
+    --bg-layout-color: #1A0F0F;
+    --txt-color-layout: #FAFAFA;
+    --text-hover-layout: #D4890F;
+
+    --card-color:  #D4890F;
+
+    --txt-color: #FAFAFA;
+
+    --hover-color: #cd4c4c; 
+    --btn-bg-color:#B33333;
+    --btn-txt-color:#FAFAFA;
     
-    --sidebar-border: 1px solid #6b676d;
+    --sidebar-border: 1px solid #663333;
     --sidebar-shadow: 2px 0 10px #cdd8eb;
     
-    --alert-bg-color: #cdd8eb;
-    --alert-txt-color: #253745;
-    }
+    --alert-bg-color: #D4890F;
+    --alert-txt-color: #FAFAFA;
+    
+    --main-bg: #1A1414;
+}

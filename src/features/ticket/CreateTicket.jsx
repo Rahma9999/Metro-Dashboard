@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { TicketController } from './TicketController';
 import { Form, Alert, Button, Spinner } from 'react-bootstrap';
 
-function CreateTicket() {
+function CreateTicket({ onHide }) {
     const navigate = useNavigate();
     const { createTicket } = TicketController();
 
@@ -47,7 +47,7 @@ function CreateTicket() {
                 price: '',
                 no_of_stations: ''
             });
-            navigate('/ticket');
+            onHide();
         }catch(err){
             setError(err.message || "Failed to create ticket");
         }finally { 

@@ -51,7 +51,7 @@ function App() {
             <Route path='/sub' element={<SubPage /> } />
             <Route path='/sub/details/:id' element={<UserDetails /> } />
 
-          </Route>
+      </Route>
         </Route>
       </Routes>
       </BrowserRouter>

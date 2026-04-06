@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import '../../styles/StylePages.css';
-import { Link, useNavigate } from 'react-router-dom';
 import { Spinner, Button, Alert } from 'react-bootstrap';
 import { TicketController } from './TicketController';
+import StationModal from '../../services/DBModal';
 
 function Ticket() {
-    const navigate = useNavigate();
     const { getTickets, deleteTicket } = TicketController();
     const theme = localStorage.getItem('app-theme') || 'light';
-
     const [tickets, setTickets] = useState([]);
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [selectedTicketId, setSelectedTicketId] = useState(null);
+    const [modalShow, setModalShow] = useState(false);
+    const [mode, setMode] = useState('');
 
     const fetchtickets = async () => {
         setLoading(true);
@@ -56,13 +56,24 @@ function Ticket() {
             <h2 className='txtTitle'>Tickets Management</h2>
 
             {error && <Alert variant="danger">{error}</Alert>}
+
+            <StationModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                mode={mode}
+                id={selectedTicketId}
+            />
             
-            <Link to='/ticket/create' className='btn btn-primary me-1'>
+            <Button className='btn me-1' onClick={() => {
+                    setMode('createTicket');
+                    setModalShow(true);}
+                    }>
                 Add new ticket
-            </Link>
+            </Button>   
             <Button className='btn' onClick={fetchtickets}>Refresh</Button>
+
             <div className="container-fluid mt-4">
-                <Table bordered className='ticketTable mw-100 '>
+                <Table bordered className='ticketTable mw-100' variant={theme}>
                 <thead>
                     <tr>
                     <th>Number of stations</th>
@@ -76,7 +87,11 @@ function Ticket() {
                             <td>{ticket.no_of_stations}</td>
                             <td>{ticket.price}</td>
                             <td>
-                                <Button className='btn me-1' onClick={() => navigate(`/ticket/edit/${ticket._id}`)}>
+                                <Button className='btn me-1' onClick={() => {
+                                        setSelectedTicketId(ticket._id);
+                                        setMode('editTicket');
+                                        setModalShow(true);}
+                                        }>
                                     Edit
                                 </Button>
                                 <Button className='btn me-1' onClick={() => handleDelete(ticket._id)}>

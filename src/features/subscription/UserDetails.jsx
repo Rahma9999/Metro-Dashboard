@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import '../../styles/StylePages.css'
-import { Alert, Col, Container, Row, Table } from 'react-bootstrap'
-import { Link } from 'react-router-dom';
-import { IoArrowBackCircle } from 'react-icons/io5';
+import { Alert, Container, Table } from 'react-bootstrap'
 
-function UserDetails() {
+function UserDetails({id}) {
     const [error, setError] = useState('');
 
     return (
@@ -20,7 +18,7 @@ function UserDetails() {
                 <tbody>
                     <tr>
                         <td>ID: </td>
-                        <td>45456464564</td>
+                        <td>{id}</td>
                     </tr>
                     <tr>
                         <td>SSN: </td>

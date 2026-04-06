@@ -1,83 +1,105 @@
-import React, { useContext, useState } from 'react';
-import "../styles/Sidebar.css";
+import React, { useContext, useState, useEffect } from 'react';
+import '../styles/Sidebar.css';
 import logo from '../assets/images/cairoMetro.jpeg';
-import { FaDelicious, FaChartPie, FaRegClock, FaCog, FaSignOutAlt, FaTrain } from "react-icons/fa";
+import {
+    FaDelicious, FaChartPie, FaCog, FaSignOutAlt, FaTrain,
+} from 'react-icons/fa';
 import { FaTicket } from 'react-icons/fa6';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { AuthContext } from '../services/AuthContext';
 
-function Sidebar() {
+const NAV_LINKS = [
+    { to: '/',         icon: <FaDelicious />, label: 'Home'         },
+    { to: '/station',  icon: <FaTrain />,     label: 'Stations'     },
+    { to: '/ticket',   icon: <FaTicket />,    label: 'Tickets'      },
+    { to: '/sub',      icon: <FaChartPie />,  label: 'Subscription' },
+];
 
+const BOTTOM_LINKS = [
+    { to: '/settings', icon: <FaCog />, label: 'Settings' },
+];
+
+function Sidebar() {
     const { logout } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
 
-    const handleLogOut = (e) => {
-        const confirmLogout = window.confirm("Are you sure you want to logout?");
-        if (!confirmLogout) {
+    useEffect(() => {
+        setIsOpen(false);
+    }, [location]);
+
+    useEffect(() => {
+        const onResize = () => {
+            if (window.innerWidth > 768) setIsOpen(false);
+        };
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
+
+    const handleLogout = (e) => {
+        if (!window.confirm('Are you sure you want to logout?')) {
             e.preventDefault();
             return;
         }
         logout();
     };
 
-    const closeSidebar = () => {
-        setIsOpen(false);
-    };
-
     return (
         <>
-            {/* Mobile Top Navbar */}
-            <div className="mobile-navbar">
-                <button className='p-1 px-2' onClick={() => setIsOpen(!isOpen)}>☰</button>
+            <nav className="mobile-topbar" aria-label="Mobile navigation">
+                <button
+                    className="hamburger"
+                    aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                    aria-expanded={isOpen}
+                    onClick={() => setIsOpen((prev) => !prev)}
+                >
+                    {isOpen ? '✕' : '☰'}
+                </button>
                 <span className="mobile-title fw-semibold">Metro Dashboard</span>
-            </div>
+            </nav>
 
-            {/* Sidebar */}
-            <aside className={`sidebar ${isOpen ? "open" : ""}`}>
-                <img src={logo} alt="logo" className="logo rounded-circle" />
+            {isOpen && (
+                <div
+                    className="sidebar-backdrop"
+                    aria-hidden="true"
+                    onClick={() => setIsOpen(false)}
+                />
+            )}
 
-                <ul className="menu">
-                    <li>
-                        <NavLink to='/' onClick={closeSidebar}>
-                            <FaDelicious />
-                                <span className='ms-1 fw-semibold'>Home</span>
-                        </NavLink>
-                    </li>
+            <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+                <img src={logo} alt="Cairo Metro logo" className="logo rounded-circle" />
 
-                    <li>
-                        <NavLink to='/station' onClick={closeSidebar}>
-                            <FaTrain />
-                            <span className='ms-1 fw-semibold'>Stations</span>
-                        </NavLink>
-                    </li>
-
-                    <li>
-                        <NavLink to='/ticket' onClick={closeSidebar}>
-                            <FaTicket />
-                            <span className='ms-1 fw-semibold'>Tickets</span>
-                        </NavLink>
-                    </li>
-
-                    <li>
-                        <NavLink to='/sub' onClick={closeSidebar}>
-                            <FaChartPie />
-                            <span className='ms-1 fw-semibold'>Subscription</span>
-                        </NavLink>
-                    </li>
+                <ul className="menu" role="navigation" aria-label="Main navigation">
+                    {NAV_LINKS.map(({ to, icon, label }) => (
+                        <li key={to}>
+                            <NavLink
+                                to={to}
+                                end={to === '/'}
+                                className={({ isActive }) => isActive ? 'active' : undefined}
+                            >
+                                {icon}
+                                <span className="ms-1 fw-semibold">{label}</span>
+                            </NavLink>
+                        </li>
+                    ))}
                 </ul>
 
-                <ul className="menu bottom-menu">
+                <ul className="menu bottom-menu" role="navigation" aria-label="Account navigation">
+                    {BOTTOM_LINKS.map(({ to, icon, label }) => (
+                        <li key={to}>
+                            <NavLink
+                                to={to}
+                                className={({ isActive }) => isActive ? 'active' : undefined}
+                            >
+                                {icon}
+                                <span className="ms-1 fw-semibold">{label}</span>
+                            </NavLink>
+                        </li>
+                    ))}
                     <li>
-                        <NavLink to='/settings' onClick={closeSidebar}>
-                            <FaCog />
-                            <span className='ms-1 fw-semibold'>Settings</span>
-                        </NavLink>
-                    </li>
-
-                    <li>
-                        <NavLink to='/' onClick={handleLogOut}>
+                        <NavLink to="/" onClick={handleLogout}>
                             <FaSignOutAlt />
-                            <span className='ms-1 fw-semibold'>Logout</span>
+                            <span className="ms-1 fw-semibold">Logout</span>
                         </NavLink>
                     </li>
                 </ul>

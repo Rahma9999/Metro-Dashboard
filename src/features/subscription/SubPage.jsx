@@ -3,6 +3,7 @@ import '../../styles/StylePages.css'
 
 import { Alert, Button, Card, CardGroup, Col, Container, Form, Row, Spinner, Table } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import StationModal from '../../services/DBModal';
 
 function SubPage() {
     const navigate = useNavigate();
@@ -12,6 +13,11 @@ function SubPage() {
     const [loadingSearch, setLoadingSearch] = useState(false);
     const [error, setError] = useState('');
     const [page, setPage] = useState(1);
+    const [selectedSubId, setSelectedSubId] = useState(null);
+    const [modalShow, setModalShow] = useState(false);
+    const [mode, setMode] = useState('');
+
+    const theme = localStorage.getItem('app-theme') || 'light';
 
     const handleSearch = async () => {
         setLoadingSearch(true);
@@ -29,6 +35,13 @@ function SubPage() {
         <div>
 
             {error && <Alert variant="danger">{error}</Alert>}
+
+            <StationModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                mode={mode}
+                id={selectedSubId}
+            />
 
             <Container className='headSection my-4 w-100'>
                 <h2 className='txtTitle mb-3'>Subscription Management</h2>
@@ -88,7 +101,7 @@ function SubPage() {
                 </Row>
             </Container>
             <Container className='TableSection mt-2'>
-                <Table className="sub-table mb-0">
+                <Table bordered className="sub-table mb-0" variant={theme}>
                 <thead>
                     <tr>
                         <th>Member</th>
@@ -118,7 +131,11 @@ function SubPage() {
                         <td className="hide-sm">10/5/2026</td>
                         <td>
                             <div className="d-flex flex-wrap gap-1">
-                            <Button className='btn me-1' onClick={() => navigate(`/sub/details/213214`)}>
+                            <Button className='btn me-1' onClick={() => {
+                                        setSelectedSubId('1212123');
+                                        setMode('viewSub');
+                                        setModalShow(true);}
+                                        }>
                                     Details
                                 </Button>
                                 <Button className='btn me-1'>

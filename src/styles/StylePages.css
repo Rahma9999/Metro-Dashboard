@@ -22,7 +22,7 @@
 
 .btn:hover {
     background-color: var(--hover-color) !important;
-    color: var(--hover-txt-color) !important;
+    color: var(--btn-txt-color) !important;
 }
 
 .member-name { 
@@ -35,10 +35,27 @@
     color:#94a3b8; 
 }
 
+.stat-card {
+    background-color: var(--card-color) !important;
+    border-radius: 0.5em !important;
+    outline: none !important;
+    border: none !important;
+}
+
+.card-body {
+    display: flex !important;
+    align-items: center !important;
+    gap: 3em;
+}
+
 .stat-value { 
+    color: var(--txt-color);
     font-size:1.9rem; 
     font-weight:800; 
     line-height:1.1; 
+}
+
+.modal-content {
 }
 
 @media(max-width:768px){ 

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, Form, Spinner } from 'react-bootstrap';
-import { Link, useNavigate, useParams } from 'react-router-dom';
 import { StationController } from './StationController';
-import { IoArrowBackCircle } from 'react-icons/io5';
-
 
 const userForm = {
     name: '', 
@@ -24,11 +21,8 @@ const reducer = (state, action) => {
     }
 }
 
-function EditStation() {
-    const { id } = useParams();
-    const navigate = useNavigate();
+function EditStation({id, onHide}) {
     const { editStation, getOneStation } = StationController();
-    const theme = localStorage.getItem('app-theme') || 'light';
 
     const [name, setName] = useState('');
     const [position, setPosition] = useState(-1);
@@ -41,7 +35,6 @@ function EditStation() {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    // let transData = [];
 
     useEffect(() => {
         const loadStation = async () => {
@@ -113,7 +106,7 @@ function EditStation() {
                 };
                 await editStation(transferId, transData);
             }
-            navigate("/station");
+            onHide();
         }catch(err){
             setError(err.message || "Failed to update station");
         } finally {
@@ -126,11 +119,6 @@ function EditStation() {
             <h2 className='txtTitle my-4'>Edit the {name} Station</h2>
             
             {error && <Alert variant="danger">{error}</Alert>}
-
-            {/* <Link to='/station' className='btn btn-primary my-1'>
-                <IoArrowBackCircle />
-                back
-            </Link> */}
 
             <div>
                 <Form onSubmit={handleSubmit}>
