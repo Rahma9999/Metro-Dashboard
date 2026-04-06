@@ -32,6 +32,7 @@ function App() {
             <Route path='*' element={<NotFound />} />
             {/* Home */}
             <Route path='/' element={<HomePage />} />
+            
             {/* Station Routes */}
             <Route path="/station" element={<StationPage />} />
             <Route path="/station/create" element={<CreateStation />} />
