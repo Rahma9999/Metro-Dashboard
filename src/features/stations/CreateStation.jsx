@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import '../../styles/StylePages.css';
-import { StationController } from './StationController';
+import { StationController } from '../../controllers/StationController';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoArrowBackCircle } from 'react-icons/io5';
 

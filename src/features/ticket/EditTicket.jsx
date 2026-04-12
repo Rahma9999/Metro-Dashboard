@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, Form, Spinner } from 'react-bootstrap'
-import { TicketController } from './TicketController';
+import { TicketController } from '../../controllers/TicketController';
 
 function EditTicket({ id, onHide }) {
     const { updateTicket, getTicket } = TicketController();

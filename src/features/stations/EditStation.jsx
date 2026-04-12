@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, Form, Spinner } from 'react-bootstrap';
-import { StationController } from './StationController';
+import { StationController } from '../../controllers/StationController';
 
 const userForm = {
     name: '', 

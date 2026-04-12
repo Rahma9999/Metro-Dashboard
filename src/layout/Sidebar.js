@@ -2,17 +2,20 @@ import React, { useContext, useState, useEffect } from 'react';
 import '../styles/Sidebar.css';
 import logo from '../assets/images/cairoMetro.jpeg';
 import {
-    FaDelicious, FaChartPie, FaCog, FaSignOutAlt, FaTrain,
+    FaDelicious, FaCog, FaSignOutAlt, FaTrain,
 } from 'react-icons/fa';
 import { FaTicket } from 'react-icons/fa6';
 import { NavLink, useLocation } from 'react-router-dom';
 import { AuthContext } from '../services/AuthContext';
+import { MdMail, MdOutlineDocumentScanner, MdOutlineManageAccounts } from 'react-icons/md';
 
 const NAV_LINKS = [
     { to: '/',         icon: <FaDelicious />, label: 'Home'         },
     { to: '/station',  icon: <FaTrain />,     label: 'Stations'     },
     { to: '/ticket',   icon: <FaTicket />,    label: 'Tickets'      },
-    { to: '/sub',      icon: <FaChartPie />,  label: 'Subscription' },
+    { to: '/sub',      icon: <MdOutlineManageAccounts />,  label: 'Members' },
+    { to: '/request',      icon: <MdOutlineDocumentScanner />,  label: 'Requests' },
+    { to: '/mail',      icon: <MdMail />,  label: 'Mails' },
 ];
 
 const BOTTOM_LINKS = [

@@ -1,5 +1,5 @@
 import React from 'react'
-import axiosInstance from "../../services/axiosInstance";
+import axiosInstance from "../services/axiosInstance";
 
 export const StationController =() => {
     
@@ -56,8 +56,19 @@ export const StationController =() => {
             return res.data?.data?.station;
         }catch(err){
             throw err;
-        }
+        };
     };
+
+    const stationsCount = async () => {
+        try{
+            const res = await axiosInstance.get('/lines/stations-count');
+            if(!res) throw new Error('Not found stations count!');
+            console.log('result count: ', res?.data?.data?.result);
+            return res?.data?.data?.result;
+        }catch(err){
+            throw err;
+        }
+    }
 
     return {
         fetchStations,
@@ -66,6 +77,7 @@ export const StationController =() => {
         createStation,
         editStation,
         searchStation,
+        stationsCount,
     };
 }
 

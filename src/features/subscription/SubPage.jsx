@@ -2,12 +2,9 @@ import React, { useState } from 'react'
 import '../../styles/StylePages.css'
 
 import { Alert, Button, Card, CardGroup, Col, Container, Form, Row, Spinner, Table } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
-import StationModal from '../../services/DBModal';
+import StationModal from '../../component/DBModal.js';
 
 function SubPage() {
-    const navigate = useNavigate();
-
     const [searchKey, setSearchKey] = useState('');
     const [loading, setLoading] = useState(false);
     const [loadingSearch, setLoadingSearch] = useState(false);
@@ -42,36 +39,7 @@ function SubPage() {
                 mode={mode}
                 id={selectedSubId}
             />
-
-            <Container className='headSection my-4 w-100'>
-                <h2 className='txtTitle mb-3'>Subscription Management</h2>
-                <CardGroup className='statCard'>
-                    <Card className="stat-card me-2">
-                    <Card.Body className="d-flex align-items-center gap-3 py-3">
-                        <div>
-                        <div>Total Members</div>
-                        <div className='stat-value'>200</div>
-                        </div>
-                    </Card.Body>
-                    </Card>
-                    <Card className="stat-card me-2">
-                    <Card.Body className="d-flex align-items-center gap-3 py-3">
-                        <div>
-                        <div>Expired</div>
-                        <div className='stat-value'>5</div>
-                        </div>
-                    </Card.Body>
-                    </Card>
-                    <Card className="stat-card me-2">
-                    <Card.Body className="d-flex align-items-center gap-3 py-3">
-                        <div>
-                        <div>Active</div>
-                        <div className='stat-value'>15</div>
-                        </div>
-                    </Card.Body>
-                    </Card>
-                </CardGroup>
-            </Container>
+            <h2 className='txtTitle m-3'>Subscription Management</h2>
             <Container className='filterSection'>
                     <Row>
                     <Col className='align-middle'>

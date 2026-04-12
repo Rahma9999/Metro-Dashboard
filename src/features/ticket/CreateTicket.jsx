@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { TicketController } from './TicketController';
+import { TicketController } from '../../controllers/TicketController';
 import { Form, Alert, Button, Spinner } from 'react-bootstrap';
 
 function CreateTicket({ onHide }) {

@@ -10,7 +10,7 @@
     width: 100%;
     min-height: 100vh;
     padding: 5px 25px;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     transition: margin-left 0.3s ease;
 }
 

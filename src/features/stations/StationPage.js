@@ -3,8 +3,8 @@ import React, { useEffect, useReducer, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import '../../styles/StylePages.css';
 import { Alert, Card, CardGroup, Col, Container, Row, Spinner } from 'react-bootstrap';
-import { StationController } from './StationController.js';
-import StationModal from '../../services/DBModal.js';
+import { StationController } from '../../controllers/StationController.js';
+import StationModal from '../../component/DBModal.js';
 
 const initState = {loading: false, loadingSearch: false, error: '', pageLength: 2, result: 1, page: 1};
 const reducer = (state, action) => {
@@ -38,6 +38,7 @@ function StationPage() {
     const [modalShow, setModalShow] = useState(false);
     const [mode, setMode] = useState('');
     
+
     const [{loading, error, loadingSearch, result, page}, dispatch] = useReducer(reducer, initState);
     const theme = localStorage.getItem('app-theme') || 'light';
 
@@ -54,6 +55,7 @@ function StationPage() {
             dispatch({type:'unloading'});
         }
     } 
+
     useEffect(() => {
         getData();
     },[page]);
@@ -104,36 +106,11 @@ function StationPage() {
             />
 
             <Container className='my-4 w-100'>
-                <h2 className='txtTitle mb-3'>Stations Management</h2>
-                <CardGroup className='statCard'>
-                    <Card className="stat-card me-2">
-                    <Card.Body className="card-body">
-                        <div>
-                            <div className='text-primary'>Line 1</div>
-                            <div className='stat-value'>35 stations</div>
-                        </div>
-                    </Card.Body>
-                    </Card>
-                    <Card className="stat-card me-2">
-                    <Card.Body className="card-body">
-                        <div>
-                            <div className='text-danger'>Line 2</div>
-                            <div className='stat-value'>20 stations</div>
-                        </div>
-                    </Card.Body>
-                    </Card>
-                    <Card className="stat-card me-2">
-                    <Card.Body className="card-body">
-                        <div>
-                            <div className='text-success'>Line 3</div>
-                            <div className='stat-value'>34 stations</div>
-                        </div>
-                    </Card.Body>
-                    </Card>
-                </CardGroup>
+                
             </Container>
             
             <Container className=''>
+                <h2 className='txtTitle mb-3'>Stations Management</h2>
                 <Row>
                     <Col className='align-middle'>
                         <input type='text' value={searchKey} onChange={(e) => setSearchKey(e.target.value)} placeholder='ex: helwan' className='rounded-3 p-2 mx-2 w-100' />

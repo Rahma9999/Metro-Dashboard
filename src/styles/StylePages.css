@@ -37,26 +37,40 @@
 
 .stat-card {
     background-color: var(--card-color) !important;
+    color: var(--txt-color);
+    margin-right: 0.5em !important;
     border-radius: 0.5em !important;
     outline: none !important;
     border: none !important;
 }
 
 .card-body {
-    display: flex !important;
+    /* display: flex !important;
     align-items: center !important;
-    gap: 3em;
+    gap: 3em; */
+    border-radius: 25%;
+    overflow: hidden;
 }
 
 .stat-value { 
     color: var(--txt-color);
-    font-size:1.9rem; 
+    font-size:1.5rem; 
     font-weight:800; 
     line-height:1.1; 
 }
 
-.modal-content {
+.card-title { 
+    color: var(--txt-color) !important;
+    font-size:1.2rem; 
 }
+
+.welcome {
+    background: var(--alert-bg-color) !important;
+    color: var(--alert-txt-color) !important;
+    border: none !important;
+    outline: none !important;
+}
+
 
 @media(max-width:768px){ 
     .hide-sm{display:none!important};

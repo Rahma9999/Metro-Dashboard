@@ -1,10 +1,10 @@
 @import './themes.css';
 
-.welcome {
+/* .welcome {
     background: var(--alert-bg-color) !important;
     color: var(--alert-txt-color) !important;
     border: none !important;
-}
+} */
 
 .legend-dot {
     width: 10px; height: 10px;

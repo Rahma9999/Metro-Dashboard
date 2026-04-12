@@ -1,5 +1,5 @@
 import React from 'react'
-import axiosInstance from '../../services/axiosInstance';
+import axiosInstance from '../services/axiosInstance';
 
 export const TicketController = () => {
 

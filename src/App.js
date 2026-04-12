@@ -16,6 +16,7 @@ import SettingsPage from './features/settings/SettingsPage';
 import SubPage from './features/subscription/SubPage';
 import UserDetails from './features/subscription/UserDetails';
 import "leaflet/dist/leaflet.css";
+import ReqPage from './features/requests/ReqPage';
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
             <Route path='/sub' element={<SubPage /> } />
             <Route path='/sub/details/:id' element={<UserDetails /> } />
 
+            <Route path='/request' element={<ReqPage />} />
       </Route>
         </Route>
       </Routes>

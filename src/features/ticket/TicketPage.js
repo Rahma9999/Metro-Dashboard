@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import '../../styles/StylePages.css';
 import { Spinner, Button, Alert } from 'react-bootstrap';
-import { TicketController } from './TicketController';
-import StationModal from '../../services/DBModal';
+import { TicketController } from '../../controllers/TicketController';
+import StationModal from '../../component/DBModal.js';
 
 function Ticket() {
     const { getTickets, deleteTicket } = TicketController();
