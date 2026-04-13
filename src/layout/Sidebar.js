@@ -15,7 +15,7 @@ const NAV_LINKS = [
     { to: '/ticket',   icon: <FaTicket />,    label: 'Tickets'      },
     { to: '/sub',      icon: <MdOutlineManageAccounts />,  label: 'Members' },
     { to: '/request',      icon: <MdOutlineDocumentScanner />,  label: 'Requests' },
-    { to: '/mail',      icon: <MdMail />,  label: 'Mails' },
+    { to: '/mails',      icon: <MdMail />,  label: 'Mails' },
 ];
 
 const BOTTOM_LINKS = [

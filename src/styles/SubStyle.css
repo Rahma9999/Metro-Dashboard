@@ -1,0 +1,200 @@
+@import '../styles/themes.css';
+
+.metro-badge {
+    color: var(--txt-color);
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 6px;
+    line-height: 1.4;
+}
+
+.metro-badge--student    { background: var(--std-bg); color: var(--std-txt); }
+.metro-badge--individual { background:var(--individual-bg); color: var(--individual-txt); }
+
+.metro-badge--pending    { background:var(--pending-bg); color: var(--pending-txt); }
+.metro-badge--accepted   { background:var(--accepted-bg); color: var(--accepted-txt); }
+.metro-badge--rejected   { background: var(--rejected-bg); color: var(--rejected-txt); }
+
+/* ══════════════════════════════════════════════════ */
+/*  FILE CHIP                                        */
+/* ══════════════════════════════════════════════════ */
+.metro-file-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    color: var(--metro-blue);
+    background: #eef2fb;
+    padding: 3px 9px;
+    border-radius: var(--radius-sm);
+    border: 0.5px solid rgba(26, 58, 107, 0.16);
+    white-space: nowrap;
+}
+
+.metro-file-chip__icon { font-size: 12px; }
+.metro-file-chip__size { color: var(--metro-muted); margin-left: 2px; }
+
+.request-card__info { 
+    flex: 1; 
+    min-width: 0;
+}
+
+.request-card__name {
+    color: var(--txt-color) !important;
+    font-family:var(--font-family);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--txt-color);
+    margin-bottom: 2px;
+}
+
+.request-card__email {
+    font-size: 12.5px;
+    color: var(--metro-muted);
+    margin-bottom: 5px;
+}
+
+.request-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.request-card__date {
+    font-size: 11.5px;
+    color: var(--metro-muted);
+}
+
+.request-card__files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.request-card__actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    border-top: 0.5px solid rgba(26, 58, 107, 0.09);
+}
+
+.metro-btn {
+    font-family: var(--font-family);
+    /* font-size: 12.5px; */
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.12s, background 0.12s;
+    line-height: 1.4;
+}
+
+.metro-btn:hover { 
+    opacity: 0.84; 
+}
+.metro-btn:disabled { 
+    opacity: 0.55;
+    cursor: not-allowed; 
+}
+
+.metro-btn--accept {
+    background: var(--metro-success);
+    color: var(--btn-txt-color);
+}
+
+.metro-btn--reject {
+    /* background: var(--btn-txt-color); */
+    background: var(--metro-danger);
+    color: var(--btn-txt-color);
+}
+/* .metro-btn--reject:hover { background:var(--rejected-bg); } */
+
+/* ══════════════════════════════════════════════════ */
+/*  MAILS STYLE                                       */
+/* ══════════════════════════════════════════════════ */
+.mail-card {
+    border: 0.5px solid rgba(26,58,107,.15);
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.mail-card.accept {
+    border-left: 5px solid var(--accepted-txt);
+}
+
+.mail-card.reject {
+    border-left: 5px solid var(--rejected-txt);
+}
+
+.mail-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.mail-icon.accept {
+    background: var(--accepted-bg);
+    color: var(--accepted-txt);
+}
+
+.mail-icon.reject {
+    background: var(--rejected-bg);
+    color: var(--rejected-txt);
+}
+
+.mail-title {
+    font-size: 14px;
+}
+
+.mail-badge {
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.mail-badge.accept {
+    background: var(--accepted-bg) !important;
+    color: var(--accepted-txt) !important;
+}
+
+.mail-badge.reject {
+    background:var(--rejected-bg) !important;
+    color: var(--rejected-txt) !important;
+}
+
+.mail-text {
+    font-size: 12.5px;
+    color: #6b7a99;
+}
+
+.mail-date {
+    font-size: 11.5px;
+    color: #6b7a99;
+    margin-top: 2px;
+}
+
+.mail-button {
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.mail-body {
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    font-family: monospace;
+    border: 0.5px solid var(--txt-color);
+}

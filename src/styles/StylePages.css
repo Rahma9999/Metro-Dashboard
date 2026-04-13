@@ -18,11 +18,17 @@
     background-color: var(--btn-bg-color) !important;
     border: none !important;
     outline: none !important;
+    font-family: var(--font-family) !important;
+    font-weight: 500 !important;
+    padding: 6px 14px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: opacity 0.12s, background 0.12s !important;
 }
 
 .btn:hover {
-    background-color: var(--hover-color) !important;
     color: var(--btn-txt-color) !important;
+    opacity: 0.84 !important;
 }
 
 .member-name { 
@@ -44,15 +50,22 @@
     border: none !important;
 }
 
-.card-body {
-    /* display: flex !important;
+.card-content {
+    display: flex !important;
+    justify-content:space-around !important;
     align-items: center !important;
-    gap: 3em; */
-    border-radius: 25%;
+    gap: 3em;
+    /* border-radius: 25%; */
     overflow: hidden;
 }
 
-.stat-value { 
+.card-txt {
+    color: var(--txt-color) !important;
+    font-size: var(--card-txt-size);
+    font-weight:600;
+}
+
+/* .stat-value { 
     color: var(--txt-color);
     font-size:1.5rem; 
     font-weight:800; 
@@ -62,7 +75,7 @@
 .card-title { 
     color: var(--txt-color) !important;
     font-size:1.2rem; 
-}
+} */
 
 .welcome {
     background: var(--alert-bg-color) !important;

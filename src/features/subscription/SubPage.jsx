@@ -1,8 +1,25 @@
 import React, { useState } from 'react'
 import '../../styles/StylePages.css'
+import '../../styles/SubStyle.css'
 
 import { Alert, Button, Card, CardGroup, Col, Container, Form, Row, Spinner, Table } from 'react-bootstrap'
 import StationModal from '../../component/DBModal.js';
+
+function TypeBadge({ type }) {
+    return (
+        <span className={`metro-badge metro-badge--${type}`}>
+            {type}
+        </span>
+    );
+}
+
+function StatusBadge({ status }) {
+    return (
+        <span className={`metro-badge metro-badge--${status}`}>
+        {status}
+        </span>
+    );
+}
 
 function SubPage() {
     const [searchKey, setSearchKey] = useState('');
@@ -92,9 +109,11 @@ function SubPage() {
                         </div>
                         </td>
                         <td>
-                            Student
+                            <TypeBadge type="student" />
                         </td>
-                        <td>Expired</td>
+                        <td>
+                            <StatusBadge status='accepted' />
+                        </td>
                         <td className="hide-sm">10/2/2026</td>
                         <td className="hide-sm">10/5/2026</td>
                         <td>
@@ -106,12 +125,49 @@ function SubPage() {
                                         }>
                                     Details
                                 </Button>
-                                <Button className='btn me-1'>
+                                {/* <Button className='btn me-1'>
                                     Update
                                 </Button>
                                 <Button className='btn me-1'>
                                     Renew
+                                </Button> */}
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                        <div className="d-flex align-items-center gap-2">
+                            <img src='../../assets/images/metroBg2.jpeg' alt='' className='w-20' />
+                            <div>
+                                <div>Rahma Nasser</div>
+                                <div className="member-email">test@gmail.com</div>
+                            </div>
+                        </div>
+                        </td>
+                        <td>
+                            <TypeBadge type="individual" />
+                        </td>
+                        <td>
+                            <StatusBadge status='rejected' />
+                        </td>
+                        <td className="hide-sm">10/2/2026</td>
+                        <td className="hide-sm">10/5/2026</td>
+                        <td>
+                            <div className="d-flex flex-wrap gap-1">
+                            <Button className='btn me-1' onClick={() => {
+                                        setSelectedSubId('1212123');
+                                        setMode('viewSub');
+                                        setModalShow(true);}
+                                        }>
+                                    Details
                                 </Button>
+                                {/* <Button className='btn me-1'>
+                                    Update
+                                </Button>
+                                <Button className='btn me-1'>
+                                    Renew
+                                </Button> */}
                             </div>
                         </td>
                     </tr>

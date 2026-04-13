@@ -127,7 +127,7 @@ input:-webkit-autofill:active {
     text-decoration: underline;
 }
 
-.login-box button{
+.login-box .login-btn{
     width: 100%;
     height: 40px;
     background: #e4e7e4;
@@ -141,7 +141,7 @@ input:-webkit-autofill:active {
     transition: all 0.4s;
 }
 
-button:hover {
+.login-btn:hover {
     background: #651215;
     color:  #e4e7e4;
 }
