@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/Table';
 import '../../styles/StylePages.css';
 import { Spinner, Button, Alert } from 'react-bootstrap';
 import { TicketController } from '../../controllers/TicketController';
-import StationModal from '../../component/DBModal.js';
+import DBModal from '../../component/DBModal.js';
 
 function Ticket() {
     const { getTickets, deleteTicket } = TicketController();
@@ -57,7 +57,7 @@ function Ticket() {
 
             {error && <Alert variant="danger">{error}</Alert>}
 
-            <StationModal
+            <DBModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 mode={mode}

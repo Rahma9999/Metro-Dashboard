@@ -18,6 +18,7 @@ import UserDetails from './features/subscription/UserDetails';
 import "leaflet/dist/leaflet.css";
 import ReqPage from './features/requests/ReqPage';
 import MailsPage from './features/mails/MailsPage';
+import TypePage from './features/Types/TypePage';
 
 function App() {
 
@@ -48,6 +49,9 @@ function App() {
 
             {/* Settings Route */}
             <Route path='/settings' element={<SettingsPage /> } />
+
+            {/* Subscription Types */}
+            <Route path='/subTypes' element={<TypePage /> } />
 
             {/* Subscription */}
             <Route path='/sub' element={<SubPage /> } />

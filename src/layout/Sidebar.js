@@ -8,11 +8,13 @@ import { FaTicket } from 'react-icons/fa6';
 import { NavLink, useLocation } from 'react-router-dom';
 import { AuthContext } from '../services/AuthContext';
 import { MdMail, MdOutlineDocumentScanner, MdOutlineManageAccounts } from 'react-icons/md';
+import { FiType } from 'react-icons/fi';
 
 const NAV_LINKS = [
     { to: '/',         icon: <FaDelicious />, label: 'Home'         },
     { to: '/station',  icon: <FaTrain />,     label: 'Stations'     },
     { to: '/ticket',   icon: <FaTicket />,    label: 'Tickets'      },
+    { to: '/subTypes',   icon: <FiType />,    label: 'Types'      },
     { to: '/sub',      icon: <MdOutlineManageAccounts />,  label: 'Members' },
     { to: '/request',      icon: <MdOutlineDocumentScanner />,  label: 'Requests' },
     { to: '/mails',      icon: <MdMail />,  label: 'Mails' },

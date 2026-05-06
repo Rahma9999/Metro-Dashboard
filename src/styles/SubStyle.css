@@ -12,12 +12,23 @@
     line-height: 1.4;
 }
 
-.metro-badge--student    { background: var(--std-bg); color: var(--std-txt); }
-.metro-badge--individual { background:var(--individual-bg); color: var(--individual-txt); }
+/* enum:["public","students","military","Elderly","special","special needs"] */
 
-.metro-badge--pending    { background:var(--pending-bg); color: var(--pending-txt); }
-.metro-badge--accepted   { background:var(--accepted-bg); color: var(--accepted-txt); }
-.metro-badge--rejected   { background: var(--rejected-bg); color: var(--rejected-txt); }
+.metro-badge--students       { background: var(--std-bg);            color: var(--std-txt); }
+.metro-badge--individual,
+.metro-badge--public         { background: var(--individual-bg);     color: var(--individual-txt); }
+.metro-badge--military       { background: var(--military-bg);       color: var(--military-txt); }
+.metro-badge--elderly        { background: var(--elderly-bg);        color: var(--elderly-txt); }
+.metro-badge--special        { background: var(--special-bg);        color: var(--special-txt); }
+.metro-badge--special-needs  { background: var(--special-needs-bg);  color: var(--special-needs-txt); }
+
+/* ['active', 'accepted','expired', 'rejected', 'pending'] */
+
+.metro-badge--pending   { background: var(--pending-bg);   color: var(--pending-txt); }
+.metro-badge--accepted  { background: var(--accepted-bg);  color: var(--accepted-txt); }
+.metro-badge--rejected  { background: var(--rejected-bg);  color: var(--rejected-txt); }
+.metro-badge--active    { background: var(--active-bg);    color: var(--active-txt); }
+.metro-badge--expired   { background: var(--expired-bg);   color: var(--expired-txt); }
 
 /* ══════════════════════════════════════════════════ */
 /*  FILE CHIP                                        */

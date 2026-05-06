@@ -2,8 +2,6 @@ import React, { useReducer, useState } from 'react';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import '../../styles/StylePages.css';
 import { StationController } from '../../controllers/StationController';
-import { Link, useNavigate } from 'react-router-dom';
-import { IoArrowBackCircle } from 'react-icons/io5';
 
 const userForm = {
     name: '', 
@@ -25,15 +23,7 @@ const reducer = (state, action) => {
 }
 
 function CreateStation({onHide}) {
-    const navigate = useNavigate();
     const { createStation } = StationController();
-    
-    // const [name, setName] = useState('');
-    // const [position, setPosition] = useState(-1);
-    // const [line, setLine] = useState('');
-    // const [isTransfer, setIsTransfer] = useState(false);
-    // const [transferPosition, setTransferPosition] = useState(-1);
-    // const [transferLine, setTransferLine] = useState('');
 
     const [{name, position, line, isTransfer, transferLine, transferPosition}, dispatch] = useReducer(reducer, userForm);
 
@@ -74,7 +64,6 @@ function CreateStation({onHide}) {
             dispatch({type: 'resetForm'})
             onHide();
         }catch(err){
-            console.log(err)
             setError("Failed to create station: There is a station already exists at this position on this line");
         } finally {
             setLoading(false);
@@ -88,12 +77,7 @@ function CreateStation({onHide}) {
             <h1 className='txtTitle my-4'>Create a new station</h1>
 
             {error && <Alert variant="danger">{error}</Alert>}
-
-            {/* <Link to='/station' className='btn btn-primary my-1'>
-                <IoArrowBackCircle />
-                back
-            </Link> */}
-
+            
             <div>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">

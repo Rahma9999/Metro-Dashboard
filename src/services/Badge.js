@@ -1,0 +1,16 @@
+export function TypeBadge({ type }) {
+    const safeType = (type === "special needs")? "special-needs": type;
+    return (
+        <span className={`metro-badge metro-badge--${safeType}`}>
+            {type}
+        </span>
+    );
+}
+
+export function StatusBadge({ status }) {
+    return (
+        <span className={`metro-badge metro-badge--${status}`}>
+            {status}
+        </span>
+    );
+}

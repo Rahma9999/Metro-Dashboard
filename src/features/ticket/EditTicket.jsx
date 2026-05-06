@@ -76,7 +76,7 @@ function EditTicket({ id, onHide }) {
 
     return (
         <div className='container w-100'>
-            <h1 className='txtTitle my-4'>Create a new station</h1>
+            <h1 className='txtTitle my-4'>Edit The Ticket</h1>
 
             {error && <Alert variant="danger">{error}</Alert>}
 

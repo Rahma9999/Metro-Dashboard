@@ -1,34 +1,11 @@
 import Button from 'react-bootstrap/Button';
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import '../../styles/StylePages.css';
-import { Alert, Card, CardGroup, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { Alert, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { StationController } from '../../controllers/StationController.js';
-import StationModal from '../../component/DBModal.js';
-
-const initState = {loading: false, loadingSearch: false, error: '', pageLength: 2, result: 1, page: 1};
-const reducer = (state, action) => {
-    switch (action.type) {
-        case 'loading':
-            return { ...state, loading: true, error: ''};
-            case 'unloading':
-                return { ...state, loading: false };
-        case 'setLoadingSearch':
-            return {...state, loadingSearch: true, error: ''};
-        case 'setUnloadingSearch':
-            return {...state, loadingSearch: false};
-        case 'setError':
-            return {...state, error: action.payload};
-        case 'setPagesData':
-            return {...state, pageLength: action.pageLength, result: action.res}
-        case 'incPage':
-                return {...state, page: state.page + 1};
-        case 'decPage':
-            return {...state, page: state.page - 1};
-        default:
-            throw new Error("station page: reducer Error!!");
-    }
-};
+import DBModal from '../../component/DBModal.js';
+import { usePagination } from '../../services/usePagination.js';
 
 function StationPage() {
     const {fetchStations, removeStation, searchStation} = StationController();
@@ -38,8 +15,7 @@ function StationPage() {
     const [modalShow, setModalShow] = useState(false);
     const [mode, setMode] = useState('');
     
-
-    const [{loading, error, loadingSearch, result, page}, dispatch] = useReducer(reducer, initState);
+const { state: { loading, error, loadingSearch, result, page }, dispatch } = usePagination();
     const theme = localStorage.getItem('app-theme') || 'light';
 
     const getData = async () => {
@@ -78,9 +54,7 @@ function StationPage() {
         try{
             const res = await searchStation(searchKey);
             setStations(res || []);
-            // console.log(res);
         }catch(err){
-            console.log(err)
             dispatch({type: 'setError', payload: "Station Not Found"});
             setStations([]);
         }finally {
@@ -98,7 +72,7 @@ function StationPage() {
         <div className='stationMain container my-4 w-100'>
             {error && <Alert variant="danger">{error}</Alert>}
 
-            <StationModal
+            <DBModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 mode={mode}
@@ -188,7 +162,6 @@ function StationPage() {
                     disabled={page >= result}
                     onClick={() => {
                         dispatch({type: 'incPage'})
-                        console.log(page,result);
                     }}
                     className="ms-2"
                 >

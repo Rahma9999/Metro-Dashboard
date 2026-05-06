@@ -8,7 +8,11 @@ export const TicketController = () => {
             const res = await axiosInstance.get('/getalltickets');
             return res.data.data || [];
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message || 
+            "Failed to get all stickets"
+        );
         }
     };
 
@@ -16,7 +20,11 @@ export const TicketController = () => {
         try{
             await axiosInstance.post('/addticket', data);
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message || 
+            "Failed to create new ticket"
+        );
         }
     }
 
@@ -24,7 +32,11 @@ export const TicketController = () => {
         try{
             await axiosInstance.delete(`/deleteticket/${id}`)
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message || 
+            "Failed to delete the ticket"
+        );
         }
     };
 
@@ -33,7 +45,11 @@ export const TicketController = () => {
             const res = await axiosInstance.get(`/getticket/${id}`);
             return res.data.data;
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message || 
+            "Failed to get the ticket"
+        );
         }
     }
 
@@ -41,7 +57,11 @@ export const TicketController = () => {
         try {
             await axiosInstance.patch(`/updateticket/${id}`, data);
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message || 
+            "Failed to update the ticket"
+        );
         }
     }
 

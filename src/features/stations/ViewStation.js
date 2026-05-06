@@ -16,7 +16,6 @@ function ViewStation({id}) {
         try{
             const data = await getOneStation(id);
             setStation(data);
-            console.log(data);
         }catch(err){
             setError(err.message || 'Failed to load station');
         }finally {

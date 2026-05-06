@@ -8,7 +8,10 @@ export const StationController =() => {
             const res = await axiosInstance.get(`/getallstations?page=${page}`);
             return res.data || [];
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message
+        );
         }
     };
 
@@ -19,7 +22,10 @@ export const StationController =() => {
             if(!station) throw new Error('Station not found');
             return station;
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message
+        );
         }
     }
 
@@ -27,7 +33,10 @@ export const StationController =() => {
         try{
             await axiosInstance.delete(`/deletestation/${id}`);
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message
+        );
         }
     };
 
@@ -35,7 +44,10 @@ export const StationController =() => {
         try{
             await axiosInstance.post('/addstation', data);
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message
+        );
         }
     };
 
@@ -43,7 +55,10 @@ export const StationController =() => {
         try{
             await axiosInstance.patch(`/updatestation/${id}`, data);
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message 
+        );
         }
     };
 
@@ -55,7 +70,10 @@ export const StationController =() => {
             const res = await axiosInstance.get(`/search/${key}`);
             return res.data?.data?.station;
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message
+        );
         };
     };
 
@@ -63,10 +81,12 @@ export const StationController =() => {
         try{
             const res = await axiosInstance.get('/lines/stations-count');
             if(!res) throw new Error('Not found stations count!');
-            console.log('result count: ', res?.data?.data?.result);
             return res?.data?.data?.result;
         }catch(err){
-            throw err;
+            throw new Error(
+            err.response?.data?.message || 
+            err.message 
+        );
         }
     }
 

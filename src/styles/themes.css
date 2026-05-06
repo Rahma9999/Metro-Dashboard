@@ -30,10 +30,23 @@ body.light {
     /* Badge Color */
     --std-bg: #e3f2fd;
     --std-txt: #0c447c;
-    
+
     --individual-bg: #e8f5e9;
     --individual-txt: #27500a;
-    
+
+    /* New user-type badges (light) */
+    --military-bg: #f1f3e2;
+    --military-txt: #4d5a14;
+
+    --elderly-bg: #fdf3e2;
+    --elderly-txt: #7a4a0a;
+
+    --special-bg: #f3e8fd;
+    --special-txt: #4a1a7a;
+
+    --special-needs-bg: #e0f5f3;
+    --special-needs-txt: #0a5a52;
+
     /* Status Color */
     --pending-bg: #fff3e0;
     --pending-txt: #633806;
@@ -43,6 +56,30 @@ body.light {
 
     --rejected-bg: #ffebee;
     --rejected-txt: #791f1f;
+
+    /* New statuses (light) */
+    --active-bg: #e3f2fd;
+    --active-txt: #0c447c;
+
+    --expired-bg: #fdecec;
+    --expired-txt: #8a3a3a;
+
+    /* Badge Color */
+    /* --std-bg: #e3f2fd;
+    --std-txt: #0c447c;
+    
+    --individual-bg: #e8f5e9;
+    --individual-txt: #27500a; */
+    
+    /* Status Color */
+    /* --pending-bg: #fff3e0;
+    --pending-txt: #633806;
+
+    --accepted-bg: #e8f5e9;
+    --accepted-txt: #27500a;
+
+    --rejected-bg: #ffebee;
+    --rejected-txt: #791f1f; */
 }
 
 body.dark {
@@ -80,7 +117,20 @@ body.dark {
 
     --individual-bg: #1b3a1f;
     --individual-txt: #81c784;
-    
+
+    /* New user-type badges (dark) */
+    --military-bg: #2e3514;
+    --military-txt: #c9d97a;
+
+    --elderly-bg: #3a2a10;
+    --elderly-txt: #ffb870;
+
+    --special-bg: #2c1a3e;
+    --special-txt: #c79bf0;
+
+    --special-needs-bg: #133a37;
+    --special-needs-txt: #7ed7cf;
+
     /* Status Color */
     --pending-bg: #3e2c10;
     --pending-txt: #ffcc80;
@@ -90,4 +140,28 @@ body.dark {
 
     --rejected-bg: #4a1c1c;
     --rejected-txt: #ef9a9a;
+
+    /* New statuses (dark) */
+    --active-bg: #1a3a5c;
+    --active-txt: #90caf9;
+
+    --expired-bg: #3a2222;
+    --expired-txt: #d99a9a;
+
+    /* Badge Color */
+    /* --std-bg: #1a3a5c;
+    --std-txt: #90caf9;
+
+    --individual-bg: #1b3a1f;
+    --individual-txt: #81c784; */
+    
+    /* Status Color */
+    /* --pending-bg: #3e2c10;
+    --pending-txt: #ffcc80;
+
+    --accepted-bg: #1b3a1f;
+    --accepted-txt: #81c784;
+
+    --rejected-bg: #4a1c1c;
+    --rejected-txt: #ef9a9a; */
 }

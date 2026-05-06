@@ -7,8 +7,11 @@ import CreateStation from '../features/stations/CreateStation'
 import UserDetails from '../features/subscription/UserDetails'
 import EditTicket from '../features/ticket/EditTicket'
 import CreateTicket from '../features/ticket/CreateTicket'
+import CreateType from '../features/Types/CreateType'
+import Edittype from '../features/Types/EditType'
+import RejectMailModal from '../features/requests/RejectMailModal'
 
-function StationModal(props) {
+function DBModal(props) {
     const theme = localStorage.getItem('app-theme') || 'light';
     const mode = () => {
         switch(props.mode){
@@ -29,6 +32,20 @@ function StationModal(props) {
             // Subscription
             case 'viewSub':
                 return <UserDetails />;
+            case 'rejectMail':
+                            return (
+                                <RejectMailModal
+                                    id={props.id}
+                                    requestData={props.requestData}
+                                    onHide={props.onHide}
+                                />
+                            );
+
+            // Subscription Types
+            case 'createType':
+                return <CreateType onHide={props.onHide}/>
+            case 'editType':
+                return <Edittype id={props.id} onHide={props.onHide} />;
             default: 
             return <NotFound />; 
         }
@@ -52,4 +69,4 @@ function StationModal(props) {
     )
     }
 
-export default StationModal
+export default DBModal

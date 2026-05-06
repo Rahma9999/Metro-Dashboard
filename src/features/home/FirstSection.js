@@ -13,7 +13,7 @@ const LINE_COLORS = {
 const getColor = (line) => LINE_COLORS[line.line_number] || 'secondary';
 
 function FirstSection() {
-    const theme = localStorage.getItem('theme') || 'light'
+    const theme = localStorage.getItem('theme') || 'light';
     let adminName = localStorage.getItem('name') || 'Unkown';
     const [line, setLine] = useState([]);
     const { stationsCount } = StationController();
@@ -21,7 +21,7 @@ function FirstSection() {
         const countOfStations = async () => {
             try{
                 const data = await stationsCount();
-                console.log("data count: ", data);
+                // console.log("data count: ", data);
                 setLine(data);
             }catch(err){
                 console.error(err);
