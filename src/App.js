@@ -20,6 +20,7 @@ import ReqPage from './features/requests/ReqPage';
 import MailsPage from './features/mails/MailsPage';
 import TypePage from './features/Types/TypePage';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 function App() {
 
@@ -68,6 +69,7 @@ function App() {
       </Routes>
       </BrowserRouter>
       <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
