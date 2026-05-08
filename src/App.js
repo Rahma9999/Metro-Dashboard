@@ -19,6 +19,7 @@ import "leaflet/dist/leaflet.css";
 import ReqPage from './features/requests/ReqPage';
 import MailsPage from './features/mails/MailsPage';
 import TypePage from './features/Types/TypePage';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
 
@@ -32,7 +33,6 @@ function App() {
         <Route element={<ProtectedRoute />}>
 
           <Route element={<Layout />}>
-            <Route path='*' element={<NotFound />} />
             {/* Home */}
             <Route path='/' element={<HomePage />} />
             
@@ -60,10 +60,14 @@ function App() {
             <Route path='/request' element={<ReqPage />} />
 
             <Route path='/mails' element={<MailsPage />} />
+            
+            {/* Not Found */}
+            <Route path='*' element={<NotFound />} />
       </Route>
         </Route>
       </Routes>
       </BrowserRouter>
+      <Analytics />
     </div>
   );
 }
