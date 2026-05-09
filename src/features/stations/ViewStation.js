@@ -25,7 +25,7 @@ function ViewStation({id}) {
     useEffect(() => {
         if(id)
             viewStation();
-        },[id]);
+        }, [id]);
 
         if(loading) return (
     <div className="position-absolute top-50 start-50 translate-middle">

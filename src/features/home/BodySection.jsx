@@ -4,22 +4,9 @@ import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer,
 import { HomeController } from '../../controllers/HomeController';
 import { usePagination } from '../../services/usePagination';
 
-const SUBSCRIPTION_TYPES = [
-    { name: "Adults", value: 38, color: "#00C2FF" },
-    { name: "Students", value: 26, color: "#7C3AED" },
-    { name: "Individuals", value: 6, color: "#EF4444" },
-];
-
-const MONTHLY_TICKETS = [
-    { tickets: 10, ratio: 142000 },
-    { tickets: 15, ratio: 158000 },
-    { tickets: 20, ratio: 171000 },
-    { tickets: 35, ratio: 163000 },
-];
-
 function BodySection() {
     const { ticketAnalysis, subscriptionAnalysis } = HomeController();
-    const {state: { loading, error }, dispatch} = usePagination();
+    const { dispatch } = usePagination();
     const [ticketData, setTicketData] = useState([]);
     const [subData, setSubData] = useState([]);
 
@@ -71,7 +58,7 @@ function BodySection() {
                     <div className='mt-5'>
                         {ticketData.map((s, i) => (
                             <div 
-                                key={i} 
+                                key={s.no_of_stations} 
                                 className='subType d-flex flex-row justify-content-between'>
                             <div>
                                 <span className="legend-dot" style={{ background: s.color }} />

@@ -76,7 +76,7 @@ function Map() {
                 if(!station.lat && !station.lng) return null;
                 return (
                     <Marker
-                        key={station.id}
+                        key={station._id || station.id}
                         position={[station.lat, station.lng]}
                         icon={getStationIcon(station)}>
                     <Popup>

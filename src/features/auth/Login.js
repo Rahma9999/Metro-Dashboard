@@ -11,18 +11,20 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-
+    const [loading, setLoading] = useState(false);
 
     const {login} = useContext(AuthContext);
 
     const handleLogin = async (e) => {
+         if (loading) return; // prevent double submit
+            setLoading(true);
         e.preventDefault();
         try{
             const res = await axios.post(
                 "https://metrodb-production.up.railway.app/api/v1/admin/login",
                 {email, password}
             );
-            // console.log(res);
+            console.log(res);
             const token = res.data.token;
             const adminName = res.data.data.admin.name;
             const ssn = res.data.data.admin.ssn;
@@ -34,6 +36,7 @@ function Login() {
         }finally{
             setPassword('');
             setEmail('');
+            setLoading(false);
         }
     };
 
@@ -65,7 +68,10 @@ function Login() {
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <label>password</label>
                     </div>
-                    <button className='login-btn' type="submit">Login</button> 
+                    <button className='login-btn' onClick={handleLogin} disabled={loading}>
+                    {loading ? 'Logging in...' : 'Login'}
+                    </button>
+                    {/* <button className='login-btn' type="submit">Login</button>  */}
                     {error && <p className='my-2' style={{ color: "white" }}>{error}</p>}
                 </Form>
             </div>

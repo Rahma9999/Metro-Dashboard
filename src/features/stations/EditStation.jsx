@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { Alert, Button, Form, Spinner } from 'react-bootstrap';
 import { StationController } from '../../controllers/StationController';
 
-const userForm = {
-    name: '', 
-    position: -1, 
-    line: '', 
-    isTransfer: false, 
-    transferLine: '', 
-    transferPosition: -1
-};
-const reducer = (state, action) => {
-    switch(action.type){
-        case 'setForm':
-            return {...state, [action.field]: action.value};
-        case 'resetForm':
-            return userForm;
-        default:
-            throw new Error('create station: reducer error!!');
-    }
-}
+// const userForm = {
+//     name: '', 
+//     position: -1, 
+//     line: '', 
+//     isTransfer: false, 
+//     transferLine: '', 
+//     transferPosition: -1
+// };
+// const reducer = (state, action) => {
+//     switch(action.type){
+//         case 'setForm':
+//             return {...state, [action.field]: action.value};
+//         case 'resetForm':
+//             return userForm;
+//         default:
+//             throw new Error('create station: reducer error!!');
+//     }
+// }
 
 function EditStation({id, onHide}) {
     const { editStation, getOneStation } = StationController();
@@ -61,7 +61,7 @@ function EditStation({id, onHide}) {
         };
 
         loadStation();
-    }, [id]);
+    }, [id, getOneStation]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

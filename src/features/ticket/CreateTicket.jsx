@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { TicketController } from '../../controllers/TicketController';
 import { Form, Alert, Button, Spinner } from 'react-bootstrap';
 
 function CreateTicket({ onHide }) {
-    const navigate = useNavigate();
     const { createTicket } = TicketController();
 
     const [loading, setLoading] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import '../../styles/StylePages.css';
 import '../../styles/SubStyle.css';
 import { Alert, Container, Spinner } from 'react-bootstrap';
@@ -6,41 +6,61 @@ import { SubscriptionController } from '../../controllers/SubscriptionController
 import RequestCard from '../../component/RequestCard';
 import { usePagination } from '../../services/usePagination';
 
-const FILES = [
-    { label: 'Photo', docType: 'photo', type: 'photo' },
-    { label: 'National ID', docType: 'national_id', type: 'doc' },
-    { label: 'Application Form', docType: 'form', type: 'form' }
-];
 
 function ReqPage() {
     const { getAllSubscriptions, changeStatus } = SubscriptionController();
     
     const [requests, setRequests]   = useState([]);
-    const { state: { loading, error, result, noOfPages, page }, dispatch } = usePagination();
+    const { state: { loading, error, page }, dispatch } = usePagination();
     const theme = localStorage.getItem('app-theme') || 'light';
     
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         dispatch({ type: 'loading' }); 
+    //         try {
+    //             const data = await getAllSubscriptions(page);
+    //             dispatch({
+    //                 type: 'setPagesData',
+    //                 noOfPages: data.pages,
+    //                 res: data.result 
+    //             });
+    //             setRequests(data.data);
+    //         } catch (err) {
+    //             dispatch({
+    //                 type: 'setError',
+    //                 payload: err.response?.data?.message || err.message
+    //             });
+    //         } finally {
+    //             dispatch({ type: 'unloading' });
+    //         }
+    //     };
+    //     fetchData();
+    // }, [page]);
+
+    const fetchData = useCallback(async (currentPage) => {
+        dispatch({ type: 'loading' });
+        try {
+            const data = await getAllSubscriptions(currentPage);
+            dispatch({
+                type: 'setPagesData',
+                noOfPages: data.pages,
+                res: data.result
+            });
+            setRequests(data.data);
+        } catch (err) {
+            dispatch({
+                type: 'setError',
+                payload: err.response?.data?.message || err.message
+            });
+        } finally {
+            dispatch({ type: 'unloading' });
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]); // only re-create when page changes
+
     useEffect(() => {
-        const fetchData = async () => {
-            dispatch({ type: 'loading' }); 
-            try {
-                const data = await getAllSubscriptions(page);
-                dispatch({
-                    type: 'setPagesData',
-                    noOfPages: data.pages,
-                    res: data.result 
-                });
-                setRequests(data.data);
-            } catch (err) {
-                dispatch({
-                    type: 'setError',
-                    payload: err.response?.data?.message || err.message
-                });
-            } finally {
-                dispatch({ type: 'unloading' });
-            }
-        };
-        fetchData();
-    }, [page]);
+        fetchData(page);
+    }, [fetchData, page]);
 
     const handleStatusChange = async (id, status) => {
         try{
@@ -69,7 +89,7 @@ function ReqPage() {
             {!loading &&
                 requests.map((request) => (
                     <RequestCard
-                        key={request.id}
+                        key={request._id}
                         request={request}
                         onStatusChange={handleStatusChange}
                     />

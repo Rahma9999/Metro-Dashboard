@@ -3,7 +3,7 @@ import '../../styles/StylePages.css'
 import { Alert, Container, Table } from 'react-bootstrap'
 
 function UserDetails({id}) {
-    const [error, setError] = useState('');
+    const [error] = useState('');
 
     return (
         <div>

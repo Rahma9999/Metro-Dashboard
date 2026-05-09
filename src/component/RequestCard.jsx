@@ -44,7 +44,7 @@ function FileChip({ subId, docType, label, type }) {
 
 function RequestCard({ request, onStatusChange }) {
     const theme = localStorage.getItem('app-theme') || 'light';
-    const { changeStatus, getDocumentUrl } = SubscriptionController();
+    const { changeStatus } = SubscriptionController();
 
     const availableFiles = FILE_TYPES.filter(
         file => request.documents?.[file.key]
@@ -65,6 +65,7 @@ function RequestCard({ request, onStatusChange }) {
         setError(null);
         try {
             const updated = await changeStatus(request._id, { status: 'accepted' });
+            onStatusChange?.(updated);
             setStatus('accepted');
         } catch (err) {
             setError(err.response?.data?.message || err.message);

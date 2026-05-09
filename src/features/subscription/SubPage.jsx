@@ -55,7 +55,7 @@ function SubPage() {
 
     useEffect(() => {
         getSubs();
-    }, [page]);
+    }, []);
 
     const handleSearch = async () => {
         dispatch({ type: 'setLoadingSearch' });

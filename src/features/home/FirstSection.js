@@ -1,7 +1,7 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import '../../styles/HomeStyle.css'
 import '../../styles/StylePages.css'
-import { Alert, Card, CardGroup, Col, Row } from 'react-bootstrap'
+import { Alert, Card, CardGroup } from 'react-bootstrap'
 import { StationController } from '../../controllers/StationController';
 
 const LINE_COLORS = {
@@ -13,7 +13,6 @@ const LINE_COLORS = {
 const getColor = (line) => LINE_COLORS[line.line_number] || 'secondary';
 
 function FirstSection() {
-    const theme = localStorage.getItem('theme') || 'light';
     let adminName = localStorage.getItem('name') || 'Unkown';
     const [line, setLine] = useState([]);
     const { stationsCount } = StationController();
@@ -30,7 +29,7 @@ function FirstSection() {
 
         useEffect(() => {
             countOfStations();
-        },[]);
+        }, []);
 
     return (
         <div>
