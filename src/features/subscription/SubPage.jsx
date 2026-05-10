@@ -154,7 +154,7 @@ function SubPage() {
                             <th>Status</th>
                             <th className="hide-sm">Created At</th>
                             <th className="hide-sm">Renewal At</th>
-                            <th>Actions</th>
+                            {/* <th>Actions</th> */}
                         </tr>
                     </thead>
 
@@ -182,7 +182,7 @@ function SubPage() {
                                 <td className="hide-sm">{formatDate(sub.createdAt)}</td>
                                 <td className="hide-sm">{(sub.renewalInitiatedAt)? formatDate(sub.renewalInitiatedAt): 'null'}</td>
 
-                                <td>
+                                {/* <td>
                                     <Button
                                         className='btn'
                                         onClick={() => {
@@ -193,7 +193,7 @@ function SubPage() {
                                     >
                                         Details
                                     </Button>
-                                </td>
+                                </td> */}
                             </tr>
                         ))}
                     </tbody>
