@@ -14,3 +14,11 @@ export function StatusBadge({ status }) {
         </span>
     );
 }
+
+export function MailTypeBadge({ status }) {
+    return (
+        <span className={`metro-badge mail-badge--${status}`}>
+            {status}
+        </span>
+    );
+}

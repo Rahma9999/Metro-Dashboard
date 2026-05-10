@@ -13,19 +13,25 @@ export const SubscriptionController = () => {
         }
     }
 
-    const changeStatus = async (id, status) => {
-        try{
-            const res = await axiosInstance.patch(`/subscriptions/${id}/status`, status);
-            return res.data?.data || [];
-        }catch(err){
-            throw new Error(
-            err.response?.data?.message || 
-            err.message || 
-            "Failed to change status"
+    const changeStatus = async (id, status, rejectionReason) => {
+    try {
+        const res = await axiosInstance.patch(
+            `/subscriptions/${id}/status`,
+            {
+                status,
+                rejectionReason,
+            }
         );
-        }
-    }
 
+        return res.data?.data || [];
+    } catch (err) {
+        throw new Error(
+            // err.response?.data?.message ||
+            // err.message ||
+            "Failed to change status!! If you choose to reject, you must send the reason for the rejection."
+        );
+    }
+};
     const getDocumentUrl = (subId, docType) => {
         return `${axiosInstance.defaults.baseURL}/subscriptions/${subId}/documents/${docType}`;
     };
@@ -47,10 +53,18 @@ export const SubscriptionController = () => {
         }
     };
 
-    // const getAllMails = async () => {
-    //     const res = await axiosInstance.get('/subscriptions/mails');
-
-    // }
+    const getAllMails = async () => {
+        try{
+        const res = await axiosInstance.get('/subscriptions/mails');
+        return res.data?.data?.emailHistory;
+        }catch(err){
+            throw new Error(
+            err.response?.data?.message || 
+            err.message || 
+            "Failed to change status"
+        );
+        }
+    }
 
         const searchSubName = async (key) => {
             if (!key.trim()) {
@@ -90,6 +104,7 @@ export const SubscriptionController = () => {
         getDocumentUrl,
         fetchDocument,
         searchSubName,
-        searchSubStatus
+        searchSubStatus,
+        getAllMails
     };
 };

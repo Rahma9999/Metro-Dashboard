@@ -38,7 +38,7 @@
     align-items: center;
     gap: 5px;
     font-size: 11.5px;
-    color: var(--metro-blue);
+    color: var(--card-color);
     background: #eef2fb;
     padding: 3px 9px;
     border-radius: var(--radius-sm);
@@ -138,35 +138,6 @@
     box-shadow: none;
 }
 
-.mail-card.accept {
-    border-left: 5px solid var(--accepted-txt);
-}
-
-.mail-card.reject {
-    border-left: 5px solid var(--rejected-txt);
-}
-
-.mail-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-}
-
-.mail-icon.accept {
-    background: var(--accepted-bg);
-    color: var(--accepted-txt);
-}
-
-.mail-icon.reject {
-    background: var(--rejected-bg);
-    color: var(--rejected-txt);
-}
-
 .mail-title {
     font-size: 14px;
 }
@@ -176,24 +147,22 @@
     text-transform: uppercase;
 }
 
-.mail-badge.accept {
-    background: var(--accepted-bg) !important;
-    color: var(--accepted-txt) !important;
-}
+/* 'rejection', 'reminder', 'renewal_failed', 'renewed', 'expired' */
 
-.mail-badge.reject {
-    background:var(--rejected-bg) !important;
-    color: var(--rejected-txt) !important;
-}
+.mail-badge--renewed  { background: var(--accepted-bg);  color: var(--accepted-txt); }
+.mail-badge--rejection  { background: var(--rejected-bg);  color: var(--rejected-txt); }
+.mail-badge--renewal_failed   { background: var(--pending-bg);   color: var(--pending-txt); }
+.mail-badge--reminder    { background: var(--active-bg);    color: var(--active-txt); }
+.mail-badge--expired   { background: var(--expired-bg);   color: var(--expired-txt); }
 
 .mail-text {
     font-size: 12.5px;
-    color: #6b7a99;
+    color:var(--text-muted);
 }
 
 .mail-date {
     font-size: 11.5px;
-    color: #6b7a99;
+    color:var(--text-muted);
     margin-top: 2px;
 }
 
@@ -203,6 +172,7 @@
 }
 
 .mail-body {
+    color: var(--txt-color);
     font-size: 13px;
     line-height: 1.8;
     white-space: pre-wrap;

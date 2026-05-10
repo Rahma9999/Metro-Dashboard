@@ -16,16 +16,6 @@ export const HomeController = () => {
         }
     }
 
-//     const allLocation = async (signal) => {
-//     try {
-//         const res = await axiosInstance.get('/alllocations', { signal });
-//         if (!res) throw new Error('No location data!!');
-//         return res?.data;
-//     } catch (err) {
-//         throw new Error(err.response?.data?.message || err.message);
-//     }
-// }
-
     const ticketAnalysis = async () => {
         try{
             const res = await axiosInstance.get('/ticketanalysis');

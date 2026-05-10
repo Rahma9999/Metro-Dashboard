@@ -22,7 +22,7 @@ body.light {
     
     --main-bg: #FAFAFA;
 
-    --metro-muted:     #6b7a99;
+    --text-muted:     #6b7a99;
     --metro-blue:      #1a3a6b;
     --metro-danger:    #c0392b;
     --metro-success:   #1a7a4a;
@@ -106,7 +106,7 @@ body.dark {
     
     --main-bg: #1A1414;
 
-    --metro-muted:     #c3c8d5;
+    --text-muted:     #c3c8d5;
     --metro-blue:      #1a3a6b;
     --metro-danger:    #c0392b;
     --metro-success:   #1a7a4a;

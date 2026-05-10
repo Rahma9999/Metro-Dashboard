@@ -79,18 +79,18 @@ function RequestCard({ request, onStatusChange }) {
     setModalMode('rejectMail');
     setModalShow(true);
 
-    try {
-        setLoading(true);
-        const updated = await changeStatus(request._id, { status: 'rejected' });
+    // try {
+    //     setLoading(true);
+    //     const updated = await changeStatus(request._id, { status: 'rejected' });
 
-        setStatus('rejected');
-        onStatusChange?.(updated);
+    //     setStatus('rejected');
+    //     onStatusChange?.(updated);
 
-    } catch (err) {
-        setError(err.response?.data?.message || err.message);
-    } finally {
-        setLoading(false);
-    }
+    // } catch (err) {
+    //     setError(err.response?.data?.message || err.message);
+    // } finally {
+    //     setLoading(false);
+    // }
 };
     return (
         <>
@@ -158,6 +158,10 @@ function RequestCard({ request, onStatusChange }) {
                 mode={modalMode}
                 id={modalId}
                 requestData={request}
+                onStatusChange={(updated) => {
+                    setStatus(updated.status);
+                    onStatusChange?.(updated);
+                }}
             />
         </>
     );

@@ -1,125 +1,107 @@
-import React, { useState } from 'react';
-import { Button, Form, Spinner } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Spinner, Alert } from 'react-bootstrap';
 import axiosInstance from '../../services/axiosInstance';
+import { usePagination } from '../../services/usePagination';
+import { FaCheckCircle } from 'react-icons/fa';
 
-/**
- * RejectMailModal
- *
- * Rendered inside DBModal when mode === 'rejectMail'.
- *
- * Props:
- *  @param {string|number} id          - Subscription / request ID (from DBModal)
- *  @param {object}        requestData - Full request object forwarded by DBModal
- *  @param {function}      onHide      - Close the modal (from DBModal)
- */
-function RejectMailModal({ id, requestData = {}, onHide }) {
-    const defaultBody = `Dear ${requestData.name ?? 'Applicant'},\n\nThank you for your subscription request. After careful review, we regret to inform you that your application has not been approved at this time.\n\nIf you have any questions, please do not hesitate to contact us.\n\nBest regards,\nThe Team`;
+function RejectMailModal({ id, onHide, onStatusChange }) {
+    const [reason, setReason] = useState('');
+    const [success, setSuccess] = useState(false);
+    const {state:{error, loading}, dispatch} = usePagination();
+    const theme = localStorage.getItem('app-theme') || 'light';
 
-    const [to,      setTo]      = useState(requestData.email ?? '');
-    const [subject, setSubject] = useState('Your Subscription Request — Update');
-    const [body,    setBody]    = useState(defaultBody);
-    const [sending, setSending] = useState(false);
-    const [sent,    setSent]    = useState(false);
-    const [error,   setError]   = useState(null);
+    useEffect(() => {
+        if (success) {
+            const timer = setTimeout(() => {
+                onHide();
+            }, 3000);
 
-    const handleSend = async () => {
-        if (!to || !subject || !body) return;
-        setSending(true);
-        setError(null);
+            return () => clearTimeout(timer);
+        }
+    }, [success, onHide]);
+
+    const handleReject = async () => {
+        if (!reason.trim()) return;
+
+        dispatch({ type: 'loading' });
+
         try {
-            await axiosInstance.post(`/subscriptions/${id}/reject-mail`, {
-                to,
-                subject,
-                body,
+            await axiosInstance.patch(`/subscriptions/${id}/status`, {
+                status: 'rejected',
+                rejectionReason: reason,
             });
-            setSent(true);
+            setSuccess(true);
+            onStatusChange?.();
         } catch (err) {
-            setError(
-                err.response?.data?.message ||
-                err.message ||
-                'Failed to send email.'
-            );
+            dispatch({type: 'setError', payload: ( err.message || 'Failed to reject subscription.')});
         } finally {
-            setSending(false);
+            dispatch({type:'unloading'});
         }
     };
 
-    // ── Success state ─────────────────────────────────────────────
-    if (sent) {
+    // Success UI
+    if (success) {
         return (
             <div className="text-center py-4">
-                <div style={{ fontSize: '2.5rem' }}>✉️</div>
-                <h5 className="mt-2 mb-1">Email sent!</h5>
+                <div style={{ fontSize: '2.5rem' }}><FaCheckCircle variant={(theme === "light")?"dark":"light"} /></div>
+
+                <h5 className="mt-3">Subscription Rejected</h5>
+
                 <p className="text-muted small">
-                    Rejection notice delivered to <strong>{to}</strong>.
+                    Rejection email has been sent successfully.
                 </p>
-                <Button variant="secondary" size="sm" onClick={onHide}>
-                    Close
-                </Button>
             </div>
         );
     }
 
-    // ── Compose form ──────────────────────────────────────────────
     return (
         <div>
-            <h5 className="mb-3">Send Rejection Email</h5>
+            <h5 className="mb-3">Reject Subscription</h5>
 
             <Form>
-                {/* To */}
-                <Form.Group className="mb-3" controlId="rejectTo">
-                    <Form.Label>To</Form.Label>
-                    <Form.Control
-                        type="email"
-                        value={to}
-                        onChange={(e) => setTo(e.target.value)}
-                        placeholder="recipient@example.com"
-                    />
-                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Rejection Reason</Form.Label>
 
-                {/* Subject */}
-                <Form.Group className="mb-3" controlId="rejectSubject">
-                    <Form.Label>Subject</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={subject}
-                        onChange={(e) => setSubject(e.target.value)}
-                    />
-                </Form.Group>
-
-                {/* Body */}
-                <Form.Group className="mb-3" controlId="rejectBody">
-                    <Form.Label>Message</Form.Label>
                     <Form.Control
                         as="textarea"
-                        rows={7}
-                        value={body}
-                        onChange={(e) => setBody(e.target.value)}
+                        rows={5}
+                        placeholder="Enter rejection reason..."
+                        value={reason}
+                        onChange={(e) => setReason(e.target.value)}
                     />
                 </Form.Group>
 
-                {/* Error */}
                 {error && (
-                    <p className="text-danger small">{error}</p>
+                    <Alert variant="danger" className="py-2">
+                        {error}
+                    </Alert>
                 )}
 
-                {/* Actions */}
-                <div className="d-flex gap-2 justify-content-end">
-                    <Button variant="secondary" onClick={onHide} disabled={sending}>
+                <div className="d-flex justify-content-end gap-2">
+                    {/* <Button
+                        variant="secondary"
+                        onClick={onHide}
+                        disabled={loading}
+                    >
                         Cancel
-                    </Button>
+                    </Button> */}
+
                     <Button
                         variant="danger"
-                        onClick={handleSend}
-                        disabled={sending || !to || !subject || !body}
+                        onClick={handleReject}
+                        disabled={loading || !reason.trim()}
                     >
-                        {sending ? (
+                        {loading ? (
                             <>
-                                <Spinner animation="border" size="sm" className="me-1" />
-                                Sending…
+                                <Spinner
+                                    animation="border"
+                                    size="sm"
+                                    className="me-2"
+                                />
+                                Rejecting...
                             </>
                         ) : (
-                            'Send Email'
+                            'Reject & Send Email'
                         )}
                     </Button>
                 </div>

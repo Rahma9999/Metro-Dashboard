@@ -1,82 +1,72 @@
-import React, { useState } from 'react'
-import { Badge, Button, Card, Collapse, Container } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Alert, Container, Spinner } from 'react-bootstrap';
+import MailCard from '../../component/MailCard';
+import { SubscriptionController } from '../../controllers/SubscriptionController';
 import '../../styles/SubStyle.css'
-
-// Remember put all of here in component and callback with props!!!!!
+import { usePagination } from '../../services/usePagination';
 
 function MailsPage() {
-    const [open, setOpen] = useState(false);
-    const isAcceptance = true;
-    const statusClass = isAcceptance ? "accept" : "reject";
+
+    const { getAllMails } = SubscriptionController();
+
+    const [mails, setMails] = useState([]);
+    const {state:{error, loading}, dispatch} = usePagination();
+
     const theme = localStorage.getItem('app-theme') || 'light';
 
+    useEffect(() => {
+
+        const fetchMails = async () => {
+            try {
+                dispatch({ type: 'loading' });
+                const data = await getAllMails();
+                setMails(data || []);
+            } catch (err) {
+                dispatch({type: 'setError', payload: ( err.message || 'Failed to fetch mails.')});
+            } finally {
+                dispatch({type:'unloading'});
+            }
+        };
+
+        fetchMails();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="position-absolute top-50 start-50 translate-middle">
+                <Spinner
+                    animation="border"
+                    variant={theme === 'dark' ? 'light' : 'dark'}
+                />
+            </div>
+        );
+    }
+
     return (
-        <div>
-            <Container className='my-4 w-100'>
-            <h2 className='txtTitle mb-3'>Subscription Requests</h2>
-            <Card bg={theme} className={`mb-3 mail-card ${statusClass}`}>
-                <Card.Body className="p-3">
-                    
-                    <div className="d-flex align-items-start gap-3">
+        <Container className="py-3">
+            <h2 className='txtTitle mb-3'>Emails History</h2>
 
-                        {/* Icon */}
-                        <div className={`mail-icon ${statusClass}`}>
-                            {isAcceptance ? "✓" : "✕"}
-                        </div>
+            {error && (
+                <Alert variant="danger">
+                    {error}
+                </Alert>
+            )}
 
-                        <div className="flex-grow-1 min-w-0">
-                            <div className="d-flex align-items-center gap-2 flex-wrap mb-1">
-                                <strong className="txtTitle mail-title">
-                                    Metro Subscription — Application Rejected
-                                </strong>
+            {!loading && mails.length === 0 && (
+                <Alert variant="secondary">
+                    No email history found.
+                </Alert>
+            )}
 
-                                <Badge className={`mail-badge ${statusClass}`}>
-                                    Acception
-                                </Badge>
-                            </div>
+            {mails.map((mail) => (
+                <MailCard
+                    key={mail._id}
+                    mail={mail}
+                />
+            ))}
 
-                            <div className="mail-text">
-                                To: <span style={{ fontWeight: 500 }}>
-                                    layla.ibrahim@nile-uni.edu.eg
-                                </span>
-                            </div>
-
-                            <div className="mail-date">
-                                Sent: 2025-04-04
-                            </div>
-                        </div>
-
-                        <Button
-                            size="sm"
-                            variant="light"
-                            className="mail-button"
-                            onClick={() => setOpen(!open)}
-                        >
-                            {open ? "Hide" : "Read"}
-                        </Button>
-                    </div>
-
-                    <Collapse in={open}>
-                        <div>
-                            <div className="mt-3 p-3 rounded mail-body">
-                                <p className='txtTitle'>
-                                    Dear Omar Youssef,
-
-                                    Congratulations! Your subscription application has been approved.
-
-                                    Your account is now active. Visit any Metro station to collect your card.
-
-                                    — Metro Administration
-                                </p>
-                            </div>
-                        </div>
-                    </Collapse>
-
-                </Card.Body>
-            </Card>
-            </Container>
-        </div>
-    )
+        </Container>
+    );
 }
 
-export default MailsPage
+export default MailsPage;
