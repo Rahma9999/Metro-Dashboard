@@ -6,6 +6,7 @@ import { Alert, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { StationController } from '../../controllers/StationController.js';
 import DBModal from '../../component/DBModal.js';
 import { usePagination } from '../../services/usePagination.js';
+import { FaSync } from 'react-icons/fa';
 
 function StationPage() {
     const {fetchStations, removeStation, searchStation} = StationController();
@@ -95,13 +96,15 @@ const { state: { loading, error, loadingSearch, result, page }, dispatch } = use
                         </Button>
                     </Col>
                     <Col>
+                        <Button className='btn mx-2' variant="outline-secondary" onClick={getData} disabled={loading}>
+                            <FaSync className={loading ? 'spin' : ''} />
+                        </Button>
                         <Button className='btn  me-1' onClick={() => {
                                 setMode('createStation');
                                 setModalShow(true);}
                                 }>
                             Add new station
                         </Button>
-                        <Button className='btn' onClick={getData}>Refresh</Button>
                     </Col>
                 </Row>
             </Container>

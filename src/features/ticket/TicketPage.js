@@ -4,6 +4,7 @@ import '../../styles/StylePages.css';
 import { Spinner, Button, Alert } from 'react-bootstrap';
 import { TicketController } from '../../controllers/TicketController';
 import DBModal from '../../component/DBModal.js';
+import { FaSync } from 'react-icons/fa';
 
 function Ticket() {
     const { getTickets, deleteTicket } = TicketController();
@@ -63,14 +64,17 @@ function Ticket() {
                 mode={mode}
                 id={selectedTicketId}
             />
+
+            <Button className='btn mx-2' variant="outline-secondary" onClick={fetchtickets} disabled={loading}>
+                <FaSync className={loading ? 'spin' : ''} />
+            </Button>
             
             <Button className='btn me-1' onClick={() => {
                     setMode('createTicket');
                     setModalShow(true);}
                     }>
                 Add new ticket
-            </Button>   
-            <Button className='btn' onClick={fetchtickets}>Refresh</Button>
+            </Button>  
 
             <div className="container-fluid mt-4">
                 <Table bordered className='ticketTable mw-100' variant={theme}>

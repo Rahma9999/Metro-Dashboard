@@ -10,6 +10,7 @@ import CreateTicket from '../features/ticket/CreateTicket'
 import CreateType from '../features/Types/CreateType'
 import Edittype from '../features/Types/EditType'
 import RejectMailModal from '../features/requests/RejectMailModal'
+import CreateAdmin from '../features/superAdmin/CreateAdmin'
 
 function DBModal(props) {
     const theme = localStorage.getItem('app-theme') || 'light';
@@ -46,6 +47,11 @@ function DBModal(props) {
                 return <CreateType onHide={props.onHide}/>
             case 'editType':
                 return <Edittype id={props.id} onHide={props.onHide} />;
+
+            //Super Admin
+            case 'createAdmin': 
+                return <CreateAdmin onHide={props.onHide} />
+
             default: 
             return <NotFound />; 
         }

@@ -1,39 +1,56 @@
 import React, { useContext, useState } from 'react';
 import '../../styles/StylePages.css';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Badge } from 'react-bootstrap';
 import { ThemeContext } from '../../services/ThemeContext';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { FaMoon, FaSun, FaUserShield } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../services/AuthContext';
 
 const SettingsPage = () => {
     const { theme, toggleTheme } = useContext(ThemeContext);
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+    const isSuperAdmin =user.role === 'superadmin';
 
-    const [language, setLanguage] = useState('English');
-
-    const adminName = localStorage.getItem('name') || 'undefined';
-    const adminEmail = localStorage.getItem('email') || 'undefined';
-    const adminSSN = localStorage.getItem('ssn') || 0;
-
-    const handleLanguageChange = (lang) => {
-        setLanguage(lang);
-    };
 
 
     return (
         <Container className=" txtTitle my-3">
             <div className='d-flex justify-content-between'>
                 <h2>Dashboard Settings</h2>
-                <div>
+                <div className="d-flex gap-2 align-items-center">
+                    {isSuperAdmin && (
+                        <Button
+                            variant="outline-danger"
+                            size="sm"
+                            title="Open Super Admin Panel"
+                            onClick={() => navigate('/adminPanal')}
+                        >
+                            <FaUserShield className="me-1" />
+                            Admin Panel
+                            <Badge bg="danger" className="ms-2">Super</Badge>
+                        </Button>
+                    )}
                     <Button onClick={toggleTheme} className='btn'>
                         {theme === 'light'? <FaMoon />: <FaSun />}
                     </Button>
                 </div>
             </div>
 
+            {isSuperAdmin && (
+                <div className="my-2">
+                    <Badge bg="danger" className="px-3 py-2">
+                        <FaUserShield className="me-1" /> Super Admin Account
+                    </Badge>
+                </div>
+            )}
+
             <Form.Group className='my-3'>
                 <Form.Label className='txtLabel'>Admin Name: </Form.Label>
                 <Form.Control
                 type="text"
-                placeholder={adminName}
+                // placeholder={adminName}
+                placeholder={user.name}
                 aria-label="Disabled input example"
                 disabled
                 readOnly
@@ -44,7 +61,8 @@ const SettingsPage = () => {
                 <Form.Label className='txtLabel'>Admin Email: </Form.Label>
                 <Form.Control
                 type="text"
-                placeholder={adminEmail}
+                // placeholder={adminEmail}
+                placeholder={user.email}
                 aria-label="Disabled input example"
                 disabled
                 readOnly
@@ -55,24 +73,14 @@ const SettingsPage = () => {
                 <Form.Label className='txtLabel'>Admin SSN: </Form.Label>
                 <Form.Control
                 type="text"
-                placeholder={adminSSN}
+                // placeholder={adminSSN}
+                placeholder={user.ssn}
                 aria-label="Disabled input example"
                 disabled
                 readOnly
             />
             </Form.Group>
 
-            <Form.Group className="my-3">
-                <Form.Label className='txtLabel'>Language</Form.Label>
-                <Form.Select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                disabled
-                >
-                <option value="English" onSelect={() => handleLanguageChange('English')}>English</option>
-                <option value="Arabic" onSelect={() => handleLanguageChange('Arabic')}>Arabic</option>
-                </Form.Select>
-            </Form.Group>
         </Container>
     );
 };

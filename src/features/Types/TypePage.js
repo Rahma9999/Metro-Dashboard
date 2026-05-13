@@ -5,6 +5,7 @@ import { Spinner, Button, Alert } from 'react-bootstrap';
 import DBModal from '../../component/DBModal.js';
 import { TypeController } from '../../controllers/TypeController.js';
 import { usePagination } from '../../services/usePagination.js';
+import { FaSync } from 'react-icons/fa';
 
 function TypePage() {
     const { getAllSubTypes, deleteSubType } = TypeController();
@@ -65,13 +66,16 @@ const { state: { loading, error, result, page }, dispatch } = usePagination();
                 id={selectedTypeId}
             />
             
+            <Button className='btn mx-2' variant="outline-secondary" onClick={fetchTypes} disabled={loading}>
+                <FaSync className={loading ? 'spin' : ''} />
+            </Button>
+
             <Button className='btn me-1' onClick={() => {
                     setMode('createType');
                     setModalShow(true);}
                     }>
                 Add new type
             </Button>   
-            <Button className='btn' onClick={fetchTypes}>Refresh</Button>
 
             <div className="container-fluid my-4">
                 <Table bordered className='typeTable mw-100' variant={theme}>

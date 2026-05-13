@@ -21,6 +21,8 @@ import MailsPage from './features/mails/MailsPage';
 import TypePage from './features/Types/TypePage';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import SuperAdminPage from './features/superAdmin/SuperAdminPage.jsx';
+import CreateAdmin from './features/superAdmin/CreateAdmin';
 
 function App() {
 
@@ -61,6 +63,10 @@ function App() {
             <Route path='/request' element={<ReqPage />} />
 
             <Route path='/mails' element={<MailsPage />} />
+
+            {/* Super Admin */}
+            <Route path='/adminPanal' element={<SuperAdminPage />} />
+            <Route path='/adminPanal/addAdmin' element={<CreateAdmin />} />
             
             {/* Not Found */}
             <Route path='*' element={<NotFound />} />

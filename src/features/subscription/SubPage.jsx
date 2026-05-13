@@ -8,6 +8,7 @@ import { SubscriptionController } from '../../controllers/SubscriptionController
 import { formatDate } from '../../services/FormatData.js'
 import { TypeBadge, StatusBadge } from '../../services/Badge.js';
 import { usePagination } from '../../services/usePagination.js';
+import { FaSync } from 'react-icons/fa';
 
 
 function SubPage() {
@@ -124,6 +125,11 @@ function SubPage() {
                         <Button className='btn' disabled={loadingSearch} onClick={handleSearch}>
                             {loadingSearch ? <Spinner size="sm" animation="border" /> : "Search"}
                         </Button>
+
+                        <Button className='btn mx-2' variant="outline-secondary" onClick={getSubs} disabled={loading}>
+                            <FaSync className={loading ? 'spin' : ''} />
+                        </Button>
+
                     </Col>
                     <Col>
                         <Form.Select
@@ -139,6 +145,7 @@ function SubPage() {
                         <option value="accepted">Accepted</option>
                         <option value="rejected">Rejected</option>
                     </Form.Select>
+            
                     </Col>
 
                 </Row>

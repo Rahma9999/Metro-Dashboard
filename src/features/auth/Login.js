@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from "axios";
 import '../../styles/Login.css';
 import { MdEmail, MdLock } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -13,23 +12,19 @@ function Login() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const {login} = useContext(AuthContext);
+    const {login, user} = useContext(AuthContext);
+
+    useEffect(() => {
+        if (user) navigate('/');
+    }, [user, navigate]);
 
     const handleLogin = async (e) => {
+        e.preventDefault();
          if (loading) return; // prevent double submit
             setLoading(true);
-        e.preventDefault();
+            setError('');
         try{
-            const res = await axios.post(
-                "https://metrodb-production.up.railway.app/api/v1/admin/login",
-                {email, password}
-            );
-            console.log(res);
-            const token = res.data.token;
-            const adminName = res.data.data.admin.name;
-            const ssn = res.data.data.admin.ssn;
-            
-            login(token, adminName, ssn, email);
+            await login(email, password);
             navigate('/');
         }catch(err){
             setError("invalid email or password");
@@ -42,10 +37,9 @@ function Login() {
 
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if(token)
+        if(user)
             navigate('/');
-    }, [navigate]);
+    }, [user, navigate]);
     
     
     return (
@@ -68,10 +62,9 @@ function Login() {
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <label>password</label>
                     </div>
-                    <button className='login-btn' onClick={handleLogin} disabled={loading}>
+                    <button type='submit' className='login-btn' disabled={loading}>
                     {loading ? 'Logging in...' : 'Login'}
                     </button>
-                    {/* <button className='login-btn' type="submit">Login</button>  */}
                     {error && <p className='my-2' style={{ color: "white" }}>{error}</p>}
                 </Form>
             </div>

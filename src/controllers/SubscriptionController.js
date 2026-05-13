@@ -13,7 +13,7 @@ export const SubscriptionController = () => {
         }
     }
 
-    const changeStatus = async (id, status, rejectionReason) => {
+    const changeStatus = async (id, status, rejectionReason = "") => {
     try {
         const res = await axiosInstance.patch(
             `/subscriptions/${id}/status`,
@@ -26,8 +26,8 @@ export const SubscriptionController = () => {
         return res.data?.data || [];
     } catch (err) {
         throw new Error(
-            // err.response?.data?.message ||
-            // err.message ||
+            err.response?.data?.message ||
+            err.message ||
             "Failed to change status!! If you choose to reject, you must send the reason for the rejection."
         );
     }
