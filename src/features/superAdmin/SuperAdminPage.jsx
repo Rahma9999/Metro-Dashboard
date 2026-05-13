@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import '../../styles/StylePages.css';
 import { Alert, Badge, Container, Spinner } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import DBModal from '../../component/DBModal.js';
 import { usePagination } from '../../services/usePagination.js';
 import {SuperAdminController} from '../../controllers/SuperAdminController.js';
 import { FaLock, FaPlus, FaSync, FaTrash, FaUserShield } from 'react-icons/fa';
+import { AuthContext } from '../../services/AuthContext.js';
 
 const AccessDenied = () => (
     <Container className="d-flex flex-column align-items-center justify-content-center position-absolute top-50 start-50 translate-middle" style={{ minHeight: '60vh' }}>
@@ -23,8 +24,9 @@ const AccessDenied = () => (
 const useSuperAdminGuard = () => {
   // Adjust the key/value to match whatever your auth stores in localStorage
   // e.g. 'role' → 'superadmin'  |  or 'userType' → 'super_admin'  etc.
-    const role = localStorage.getItem('role');
-    return role === 'superadmin';
+    const { user } = useContext(AuthContext);
+
+    return user.role === 'superadmin';
 };
 
 function SuperAdminPage() {
