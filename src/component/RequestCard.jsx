@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { SubscriptionController } from '../controllers/SubscriptionController';
 import DBModal from '../component/DBModal';
 import { IoDocumentAttachOutline } from 'react-icons/io5';
 import { TypeBadge, StatusBadge } from '../services/Badge';
 import { formatDate } from '../services/FormatData';
+import { ThemeContext } from '../services/ThemeContext';
+import '../styles/StylePages.css';
 
 const FILE_TYPES = [
     { key: 'photo', label: 'Photo', type: 'photo' },
@@ -43,30 +45,31 @@ function FileChip({ subId, docType, label, type }) {
 
 
 function RequestCard({ request, onStatusChange }) {
-    const theme = localStorage.getItem('app-theme') || 'light';
+    const { theme } = useContext(ThemeContext);
     const { changeStatus } = SubscriptionController();
 
     const availableFiles = FILE_TYPES.filter(
         file => request.documents?.[file.key]
     );
 
-    const [status, setStatus]   = useState(request.status);
     const [loading, setLoading] = useState(false);
     const [error, setError]     = useState(null);
+    
+    const status = request.status;
+    const isPending = status === 'pending';
 
     // ── Reject-mail modal state ───────────────────────────────────
     const [modalShow, setModalShow] = useState(false);
     const [modalMode, setModalMode] = useState(null);
     const [modalId,   setModalId]   = useState(null);
 
-    const isPending = status === 'pending';
     const handleAccept = async () => {
         setLoading(true);
         setError(null);
         try {
-            const updated = await changeStatus(request._id, { status: 'accepted' });
-            onStatusChange?.(updated);
-            setStatus('accepted');
+            await changeStatus(request._id,  'accepted' );
+            // onStatusChange?.(updated); 
+            onStatusChange?.(request._id, 'accepted');
         } catch (err) {
             setError(err.response?.data?.message || err.message);
         } finally {
@@ -99,22 +102,23 @@ function RequestCard({ request, onStatusChange }) {
 
                     <div className="d-flex align-items-start g-2 mb-2">
                         <div className="request-card__info">
-                            <div className="request-card__name">{request.user?.name}</div>
-                            <div className="request-card__email">{request.user?.email}</div>
+                            <div className="txtLabel">{request.user?.name}</div>
+                            <div className="txtLabel">{request.user?.email}</div>
 
-                            <div className="request-card__meta">
-                                <TypeBadge type={request.type?.category?.en} />
-                                <span className="request-card__date">
+                            <div className="txtLabel">
+                                <span className="txtLabel">
                                     {formatDate(request.createdAt)}
                                     {request.university && ` · ${request.university}`}
                                 </span>
                             </div>
+                            <TypeBadge type={request.type?.category?.en} />
                         </div>
+                        
                         <StatusBadge status={status} />
                     </div>
 
                         {availableFiles.length > 0 && (
-                        <div className="request-card__files">
+                        <div className="txtLabel my-2">
                             {availableFiles.map(file => (
                                 <FileChip
                                     key={file.key}
@@ -128,12 +132,12 @@ function RequestCard({ request, onStatusChange }) {
                     )}
                     {/* Error message */}
                     {error && (
-                        <div className="text-danger small mt-1">{error}</div>
+                        <div className="text-danger mt-1">{error}</div>
                     )}
                     {isPending && (
-                        <div className="request-card__actions">
+                        <div>
                             <button
-                                className="metro-btn metro-btn--accept"
+                                className="metro-btn metro-btn--accept mx-1"
                                 onClick={handleAccept}
                                 disabled={loading}
                             >
@@ -158,9 +162,10 @@ function RequestCard({ request, onStatusChange }) {
                 mode={modalMode}
                 id={modalId}
                 requestData={request}
-                onStatusChange={(updated) => {
-                    setStatus(updated.status);
-                    onStatusChange?.(updated);
+                onStatusChange={(id, status) => {
+                    // setStatus(updated.status);
+                    // onStatusChange?.(updated);
+                    onStatusChange?.(id || request._id, status || 'rejected');
                 }}
             />
         </>

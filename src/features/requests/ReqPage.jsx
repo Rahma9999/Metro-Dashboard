@@ -63,7 +63,6 @@ function ReqPage() {
     }, [fetchData, page]);
 
     const handleStatusChange = async (id, status) => {
-        await fetchData(page);
         try{
             changeStatus(id, status);
         }catch(err){
@@ -71,6 +70,8 @@ function ReqPage() {
                 type: 'setError',
                 payload: err.response?.data?.message || err.message
             });
+        }finally{
+            await fetchData(page);
         }
     };
 

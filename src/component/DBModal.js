@@ -39,6 +39,7 @@ function DBModal(props) {
                                     id={props.id}
                                     requestData={props.requestData}
                                     onHide={props.onHide}
+                                    onStatusChange={props.onStatusChange}
                                 />
                             );
 

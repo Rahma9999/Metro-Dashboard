@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Form, Spinner, Alert } from 'react-bootstrap';
-import axiosInstance from '../../services/axiosInstance';
 import { usePagination } from '../../services/usePagination';
 import { FaCheckCircle } from 'react-icons/fa';
+import { ThemeContext } from '../../services/ThemeContext';
+import { SubscriptionController } from '../../controllers/SubscriptionController';
 
 function RejectMailModal({ id, onHide, onStatusChange }) {
     const [reason, setReason] = useState('');
     const [success, setSuccess] = useState(false);
     const {state:{error, loading}, dispatch} = usePagination();
-    const theme = localStorage.getItem('app-theme') || 'light';
+    const {theme} = useContext(ThemeContext);
+    const { changeStatus } = SubscriptionController();
 
     useEffect(() => {
         if (success) {
@@ -26,10 +28,11 @@ function RejectMailModal({ id, onHide, onStatusChange }) {
         dispatch({ type: 'loading' });
 
         try {
-            await axiosInstance.patch(`/subscriptions/${id}/status`, {
-                status: 'rejected',
-                rejectionReason: reason,
-            });
+            // await axiosInstance.patch(`/subscriptions/${id}/status`, {
+            //     status: 'rejected',
+            //     rejectionReason: reason,
+            // });
+            await changeStatus(id, 'rejected', reason);
             setSuccess(true);
             onStatusChange?.();
         } catch (err) {
@@ -43,7 +46,7 @@ function RejectMailModal({ id, onHide, onStatusChange }) {
     if (success) {
         return (
             <div className="text-center py-4">
-                <div style={{ fontSize: '2.5rem' }}><FaCheckCircle variant={(theme === "light")?"dark":"light"} /></div>
+                <div style={{ fontSize: '2.5rem' }}><FaCheckCircle color={theme === "light" ? "black" : "white"} /></div>
 
                 <h5 className="mt-3">Subscription Rejected</h5>
 

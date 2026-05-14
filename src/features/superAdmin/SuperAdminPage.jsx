@@ -43,7 +43,6 @@ const { state: { loading, error }, dispatch } = usePagination();
         dispatch({type:'loading'});
         try{
             const data = await getAdmins();
-            console.log(data);
             if(!data)
                 dispatch({type: 'setError', payload: ( "There are no admins to display.")});
             else
