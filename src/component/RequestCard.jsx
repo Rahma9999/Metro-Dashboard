@@ -102,11 +102,11 @@ function RequestCard({ request, onStatusChange }) {
 
                     <div className="d-flex align-items-start g-2 mb-2">
                         <div className="request-card__info">
-                            <div className="txtLabel">{request.user?.name}</div>
-                            <div className="txtLabel">{request.user?.email}</div>
+                            <strong className="txtTitle mail-title">{request.user?.name}</strong>
+                            <div className="mail-text">{request.user?.email}</div>
 
-                            <div className="txtLabel">
-                                <span className="txtLabel">
+                            <div>
+                                <span className="mail-date">
                                     {formatDate(request.createdAt)}
                                     {request.university && ` · ${request.university}`}
                                 </span>
