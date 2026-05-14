@@ -16,7 +16,7 @@ function MailCard({ mail }) {
                 <div className="flex-grow-1 min-w-0">
                     <div className="d-flex justify-content-between align-items-center gap-2 flex-wrap mb-1">
                         <strong className="txtTitle mail-title">
-                            {mail.user}
+                            {mail.user?.name}
                         </strong>
 
                         <MailTypeBadge status={statusClass} />
