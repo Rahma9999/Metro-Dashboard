@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import '../../styles/StylePages.css';
-import { Spinner, Button, Alert } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import DBModal from '../../component/DBModal.js';
 import { TypeController } from '../../controllers/TypeController.js';
 import { usePagination } from '../../services/usePagination.js';
@@ -11,7 +11,7 @@ import { AppLoader } from '../../component/AppLoader.js';
 function TypePage() {
     const { getAllSubTypes, deleteSubType } = TypeController();
     const theme = localStorage.getItem('app-theme') || 'light';
-const { state: { loading, error, result, page }, dispatch } = usePagination();
+const { state: { loading, error, noOfPages, page }, dispatch } = usePagination();
 
     const [types, setTypes] = useState([]);
     const [selectedTypeId, setSelectedTypeId] = useState(null);
@@ -22,8 +22,8 @@ const { state: { loading, error, result, page }, dispatch } = usePagination();
         dispatch({type: 'loading'});
         try{
             const res = await getAllSubTypes(page);
-            // console.log('sub Types: ', res);
-            setTypes(res);
+            dispatch({type: 'setPagesData', noOfPages: res?.data?.totalPages, result: res.data?.totalCount});
+            setTypes(res.data?.data);
         }catch(err){
             dispatch({type: 'setError', payload: ( err.message || 'Failed to load subscription types')});
         }finally{
@@ -32,8 +32,8 @@ const { state: { loading, error, result, page }, dispatch } = usePagination();
     }
 
     useEffect(() => {
-        fetchTypes();
-    }, []);
+        fetchTypes(page);
+    }, [page]);
 
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this subscription type?")) return;
@@ -82,7 +82,7 @@ const { state: { loading, error, result, page }, dispatch } = usePagination();
                     <tr>
                     <th>category</th>
                     <th>duration</th>
-                    <th>zones</th>
+                    <th>zones or Lines</th>
                     <th>prices</th>
                     <th>Actions</th>
                     </tr>
@@ -92,7 +92,11 @@ const { state: { loading, error, result, page }, dispatch } = usePagination();
                         <tr key={type._id}>
                             <td>{type.category.en}</td>
                             <td>{type.duration.en}</td>
-                            <td>{type.zones}</td>
+                            <td>
+                                {(type.zones)? type.zones + ' zones': 
+                                (type.numOfLines)? type.numOfLines + ' lines': 
+                                'Null'}
+                            </td>
                             <td>{type.prices}</td>
                             <td>
                                 <Button className='btn me-1' onClick={() => {
@@ -122,7 +126,7 @@ const { state: { loading, error, result, page }, dispatch } = usePagination();
                                 <span className="txtTitle align-self-center">Page {page}</span>
                                 
                                 <Button 
-                                    disabled={page >= result}
+                                    disabled={page >= noOfPages}
                                     onClick={() => {
                                         dispatch({type: 'incPage'})
                                     }}

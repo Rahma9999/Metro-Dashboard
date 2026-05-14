@@ -5,7 +5,7 @@ export const TypeController = () => {
     const getAllSubTypes = async (page) => {
         try{
             const res = await axiosInstance.get(`/subscriptions/allsubscriptionstypes?page=${page}`);
-            return res.data.data || [];
+            return res || [];
         }catch(err){
             throw new Error(
             err.response?.data?.message || 
