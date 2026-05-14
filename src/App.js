@@ -2,9 +2,9 @@ import './App.css';
 import Layout from './layout/Layout';
 import Login from './features/auth/Login';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import CreateStation from './features/stations/CreateStation'
-import EditStation from './features/stations/EditStation'
-import ViewStation from './features/stations/ViewStation'
+import CreateStation from './features/stations/CreateStation';
+import EditStation from './features/stations/EditStation';
+import ViewStation from './features/stations/ViewStation';
 import ProtectedRoute from './services/ProtectedRoute';
 import Ticket from './features/ticket/TicketPage';
 import StationPage from './features/stations/StationPage';
@@ -25,55 +25,57 @@ import SuperAdminPage from './features/superAdmin/SuperAdminPage.jsx';
 import CreateAdmin from './features/superAdmin/CreateAdmin';
 
 function App() {
-
   return (
     <div className="App">
       <BrowserRouter>
-      <Routes>
-        <Route path='/login' element={<Login />} />
+        <Routes>
+          <Route path='/login' element={<Login />} />
+          
+          <Route element={<ProtectedRoute />}>
+            <Route element={<Layout />}>
 
-        {/* Route With Token */}
-        <Route element={<ProtectedRoute />}>
+              {/* Home */}
+              <Route path='/' element={<HomePage />} />
 
-          <Route element={<Layout />}>
-            {/* Home */}
-            <Route path='/' element={<HomePage />} />
-            
-            {/* Station Routes */}
-            <Route path="/station" element={<StationPage />} />
-            <Route path="/station/create" element={<CreateStation />} />
-            <Route path="/station/edit/:id" element={<EditStation />} />
-            <Route path="/station/view/:id" element={<ViewStation />} />
-            
-            {/* Ticket Routes */}
-            <Route path="/ticket" element={<Ticket />} />
-            <Route path="/ticket/create" element={<CreateTicket />} />
-            <Route path="/ticket/edit/:id" element={<EditTicket />} />
+              {/* Station */}
+              <Route path='/station' element={<StationPage />} />
+              <Route path='/station/create' element={<CreateStation />} />
+              <Route path='/station/edit/:id' element={<EditStation />} />
+              <Route path='/station/view/:id' element={<ViewStation />} />
 
-            {/* Settings Route */}
-            <Route path='/settings' element={<SettingsPage /> } />
+              {/* Ticket */}
+              <Route path='/ticket' element={<Ticket />} />
+              <Route path='/ticket/create' element={<CreateTicket />} />
+              <Route path='/ticket/edit/:id' element={<EditTicket />} />
 
-            {/* Subscription Types */}
-            <Route path='/subTypes' element={<TypePage /> } />
+              {/* Settings */}
+              <Route path='/settings' element={<SettingsPage />} />
 
-            {/* Subscription */}
-            <Route path='/sub' element={<SubPage /> } />
-            <Route path='/sub/details/:id' element={<UserDetails /> } />
+              {/* Subscription Types */}
+              <Route path='/subTypes' element={<TypePage />} />
 
-            <Route path='/request' element={<ReqPage />} />
+              {/* Subscription */}
+              <Route path='/sub' element={<SubPage />} />
+              <Route path='/sub/details/:id' element={<UserDetails />} />
 
-            <Route path='/mails' element={<MailsPage />} />
+              {/* Requests */}
+              <Route path='/request' element={<ReqPage />} />
 
-            {/* Super Admin */}
-            <Route path='/adminPanal' element={<SuperAdminPage />} />
-            <Route path='/adminPanal/addAdmin' element={<CreateAdmin />} />
-            
-            {/* Not Found */}
-            <Route path='*' element={<NotFound />} />
-      </Route>
-        </Route>
-      </Routes>
+              {/* Mails */}
+              <Route path='/mails' element={<MailsPage />} />
+
+              {/* Super Admin */}
+              <Route path='/adminPanel' element={<SuperAdminPage />} />
+              <Route path='/adminPanel/addAdmin' element={<CreateAdmin />} />
+
+              {/* 404 */}
+              <Route path='*' element={<NotFound />} />
+
+            </Route>
+          </Route>
+        </Routes>
       </BrowserRouter>
+
       <Analytics />
       <SpeedInsights />
     </div>

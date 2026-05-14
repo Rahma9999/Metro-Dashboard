@@ -6,6 +6,7 @@ import DBModal from '../../component/DBModal.js';
 import { TypeController } from '../../controllers/TypeController.js';
 import { usePagination } from '../../services/usePagination.js';
 import { FaSync } from 'react-icons/fa';
+import { AppLoader } from '../../component/AppLoader.js';
 
 function TypePage() {
     const { getAllSubTypes, deleteSubType } = TypeController();
@@ -48,9 +49,7 @@ const { state: { loading, error, result, page }, dispatch } = usePagination();
     };
 
     if(loading) return (
-        <div className="position-absolute top-50 start-50 translate-middle">
-            <Spinner animation="border" variant={(theme === 'dark')? 'light' : 'dark'} />
-        </div>
+        <AppLoader />
         );
 
     return (

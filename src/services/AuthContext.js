@@ -12,9 +12,13 @@ const authAxios = axios.create({
     timeout: 10000,
 });
 
+const SESSION_TOKEN_KEY = 'session_token';
+const SESSION_USER_KEY  = 'session_user';
+
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);  // { name, email, role }
     const [token, setToken] = useState(null);  
+    const [loading, setLoading] = useState(true);
 
     const tokenRef = useRef(null);
 
@@ -26,6 +30,25 @@ export const AuthProvider = ({ children }) => {
         tokenRef.current = token;
     }, [token]);
 
+    useEffect(() => {
+        try {
+            const savedToken = sessionStorage.getItem(SESSION_TOKEN_KEY);
+            const savedUser  = sessionStorage.getItem(SESSION_USER_KEY);
+            if (savedToken && savedUser) {
+                const parsedUser = JSON.parse(savedUser);
+                tokenRef.current = savedToken; // set ref immediately
+                setToken(savedToken);
+                setUser(parsedUser);
+            }
+        } catch {
+            // Corrupted sessionStorage — clear it and start fresh
+            sessionStorage.removeItem(SESSION_TOKEN_KEY);
+            sessionStorage.removeItem(SESSION_USER_KEY);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
     const login = async (email, password) => {
 
         try{
@@ -34,13 +57,18 @@ export const AuthProvider = ({ children }) => {
             const receivedToken = res.data?.token;
             const admin = res.data?.data?.admin;
             
+            const safeUser = {
+            name:  admin?.name,
+            email: admin?.email,
+            role:  admin?.role,
+        };
+
+        sessionStorage.setItem(SESSION_TOKEN_KEY, receivedToken);
+        sessionStorage.setItem(SESSION_USER_KEY, JSON.stringify(safeUser));
+
             tokenRef.current = receivedToken; // update immediately (before re-render)
             setToken(receivedToken);
             setUser(admin);
-
-            console.log('data.data: ', res.data);
-            console.log('data: ', res);
-
             return admin;
         }catch(err){
             throw new Error(
@@ -61,6 +89,8 @@ export const AuthProvider = ({ children }) => {
         } catch (_) {
             // Clear state regardless of server response
         } finally {
+            sessionStorage.removeItem(SESSION_TOKEN_KEY);
+            sessionStorage.removeItem(SESSION_USER_KEY);
             tokenRef.current = null;
             setToken(null);
             setUser(null);
@@ -70,7 +100,7 @@ export const AuthProvider = ({ children }) => {
     const isAuthenticated = !!user;
 
     return (
-        <AuthContext.Provider value={{token, user, isAuthenticated, login, logout }}>
+        <AuthContext.Provider value={{token, user, loading, isAuthenticated, login, logout }}>
         {children}
         </AuthContext.Provider>
     );

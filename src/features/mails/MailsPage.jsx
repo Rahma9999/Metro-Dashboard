@@ -4,6 +4,7 @@ import MailCard from '../../component/MailCard';
 import { SubscriptionController } from '../../controllers/SubscriptionController';
 import '../../styles/SubStyle.css'
 import { usePagination } from '../../services/usePagination';
+import { AppLoader } from '../../component/AppLoader';
 
 function MailsPage() {
 
@@ -33,12 +34,7 @@ function MailsPage() {
 
     if (loading) {
         return (
-            <div className="position-absolute top-50 start-50 translate-middle">
-                <Spinner
-                    animation="border"
-                    variant={theme === 'dark' ? 'light' : 'dark'}
-                />
-            </div>
+            <AppLoader />
         );
     }
 

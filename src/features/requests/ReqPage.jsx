@@ -5,6 +5,7 @@ import { Alert, Container, Spinner } from 'react-bootstrap';
 import { SubscriptionController } from '../../controllers/SubscriptionController';
 import RequestCard from '../../component/RequestCard';
 import { usePagination } from '../../services/usePagination';
+import { AppLoader } from '../../component/AppLoader';
 
 
 function ReqPage() {
@@ -77,9 +78,7 @@ function ReqPage() {
 
     if (loading) {
         return (
-            <div className="position-absolute top-50 start-50 translate-middle">
-                <Spinner animation="border" variant={theme === 'dark' ? 'light' : 'dark'} />
-            </div>
+            <AppLoader />
         );
     }
 

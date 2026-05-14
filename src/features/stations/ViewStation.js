@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StationController } from '../../controllers/StationController';
 import { Alert, Spinner, Table } from 'react-bootstrap';
+import { AppLoader } from '../../component/AppLoader';
 
 function ViewStation({id}) {
     const {getOneStation} = StationController();
@@ -28,10 +29,8 @@ function ViewStation({id}) {
         }, [id]);
 
         if(loading) return (
-    <div className="position-absolute top-50 start-50 translate-middle">
-        <Spinner animation="border" variant={(theme === 'dark')? 'light' : 'dark'} />
-    </div>
-    );
+            <AppLoader />
+        );
 
     return (
         <div className='container my-4 w-100'>

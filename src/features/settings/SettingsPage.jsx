@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import '../../styles/StylePages.css';
 import { Container, Form, Button, Badge } from 'react-bootstrap';
 import { ThemeContext } from '../../services/ThemeContext';
@@ -12,8 +12,6 @@ const SettingsPage = () => {
     const { user } = useContext(AuthContext);
     const isSuperAdmin =user.role === 'superadmin';
 
-
-
     return (
         <Container className=" txtTitle my-3">
             <div className='d-flex justify-content-between'>
@@ -24,7 +22,7 @@ const SettingsPage = () => {
                             variant="outline-danger"
                             size="sm"
                             title="Open Super Admin Panel"
-                            onClick={() => navigate('/adminPanal')}
+                            onClick={() => navigate('/adminPanel')}
                         >
                             <FaUserShield className="me-1" />
                             Admin Panel
@@ -68,17 +66,6 @@ const SettingsPage = () => {
                 readOnly
             />
 
-            </Form.Group>
-            <Form.Group className='my-3'>
-                <Form.Label className='txtLabel'>Admin SSN: </Form.Label>
-                <Form.Control
-                type="text"
-                // placeholder={adminSSN}
-                placeholder={user.ssn}
-                aria-label="Disabled input example"
-                disabled
-                readOnly
-            />
             </Form.Group>
 
         </Container>

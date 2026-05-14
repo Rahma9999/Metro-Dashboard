@@ -9,6 +9,7 @@ import { formatDate } from '../../services/FormatData.js'
 import { TypeBadge, StatusBadge } from '../../services/Badge.js';
 import { usePagination } from '../../services/usePagination.js';
 import { FaSync } from 'react-icons/fa';
+import { AppLoader } from '../../component/AppLoader.js';
 
 
 function SubPage() {
@@ -92,9 +93,7 @@ function SubPage() {
 
     if (loading) {
         return (
-            <div className="position-absolute top-50 start-50 translate-middle">
-                <Spinner animation="border" variant={theme === 'dark' ? 'light' : 'dark'} />
-            </div>
+            <AppLoader />
         );
     }
 

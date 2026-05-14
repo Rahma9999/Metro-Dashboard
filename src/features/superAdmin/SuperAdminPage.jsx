@@ -8,6 +8,7 @@ import { usePagination } from '../../services/usePagination.js';
 import {SuperAdminController} from '../../controllers/SuperAdminController.js';
 import { FaLock, FaPlus, FaSync, FaTrash, FaUserShield } from 'react-icons/fa';
 import { AuthContext } from '../../services/AuthContext.js';
+import { AppLoader } from '../../component/AppLoader.js';
 
 const AccessDenied = () => (
     <Container className="d-flex flex-column align-items-center justify-content-center position-absolute top-50 start-50 translate-middle" style={{ minHeight: '60vh' }}>
@@ -73,9 +74,7 @@ const { state: { loading, error }, dispatch } = usePagination();
 
 
     if(loading) return (
-    <div className="position-absolute top-50 start-50 translate-middle">
-        <Spinner animation="border" variant={(theme === 'dark')? 'light' : 'dark'} />
-    </div>
+    <AppLoader />
     );
 
     if (!isSuperAdmin) return <AccessDenied />;

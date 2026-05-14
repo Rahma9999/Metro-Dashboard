@@ -5,6 +5,7 @@ import { Spinner, Button, Alert } from 'react-bootstrap';
 import { TicketController } from '../../controllers/TicketController';
 import DBModal from '../../component/DBModal.js';
 import { FaSync } from 'react-icons/fa';
+import { AppLoader } from '../../component/AppLoader.js';
 
 function Ticket() {
     const { getTickets, deleteTicket } = TicketController();
@@ -47,9 +48,7 @@ function Ticket() {
     };
 
     if(loading) return (
-        <div className="position-absolute top-50 start-50 translate-middle">
-            <Spinner animation="border" variant={(theme === 'dark')? 'light' : 'dark'} />
-        </div>
+        <AppLoader />
         );
 
     return (
