@@ -155,6 +155,7 @@
 .mail-badge--renewal_failed   { background: var(--pending-bg);   color: var(--pending-txt); }
 .mail-badge--reminder    { background: var(--active-bg);    color: var(--active-txt); }
 .mail-badge--expired   { background: var(--expired-bg);   color: var(--expired-txt); }
+.mail-badge--manual_renewal_required   { background: var(--std-bg);            color: var(--std-txt); }
 
 .mail-text {
     font-size: 12.5px;
