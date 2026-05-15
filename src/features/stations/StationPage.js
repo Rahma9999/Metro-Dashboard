@@ -36,7 +36,7 @@ const { state: { loading, error, loadingSearch, result, page }, dispatch } = use
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [page]);
 
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this station?")) return;

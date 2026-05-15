@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StationController } from '../../controllers/StationController';
-import { Alert, Spinner, Table } from 'react-bootstrap';
+import { Alert, Table } from 'react-bootstrap';
 import { AppLoader } from '../../component/AppLoader';
 
 function ViewStation({id}) {
