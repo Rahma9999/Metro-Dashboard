@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { HomeController } from '../../controllers/HomeController';
@@ -126,4 +126,4 @@ function BodySection() {
     )
 }
 
-export default BodySection
+export default memo(BodySection)

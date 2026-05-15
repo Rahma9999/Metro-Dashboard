@@ -8,6 +8,7 @@ export function TypeBadge({ type }) {
 }
 
 export function StatusBadge({ status }) {
+    console.log('statusBadge: ', status)
     return (
         <span className={`metro-badge metro-badge--${status}`}>
             {status}

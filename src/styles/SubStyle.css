@@ -29,6 +29,7 @@
 .metro-badge--rejected  { background: var(--rejected-bg);  color: var(--rejected-txt); }
 .metro-badge--active    { background: var(--active-bg);    color: var(--active-txt); }
 .metro-badge--expired   { background: var(--expired-bg);   color: var(--expired-txt); }
+.metro-badge--renew  { background: var(--special-needs-bg);  color: var(--special-needs-txt); }
 
 /* ══════════════════════════════════════════════════ */
 /*  FILE CHIP                                        */
